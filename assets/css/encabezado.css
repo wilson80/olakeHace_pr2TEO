@@ -1,0 +1,234 @@
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .fixed-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .carousel-container {
+      width: 80%;
+      max-width: 1200px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      background-color: #1c955f;
+      margin-bottom: 20px;
+    }
+    .carousel {
+      display: flex;
+      overflow-x: scroll;
+      scroll-behavior: smooth;
+      width: 100%;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .carousel-inner {
+      display: flex;
+      width: 100%;
+    }
+    .carousel-slide {
+      flex: 0 0 100%;
+      text-align: center;
+      padding: 40px;
+      scroll-snap-align: start;
+      position: relative;
+    }
+    .carousel-slide img {
+      width: 175px;
+      height: auto;
+      float: left;
+    }
+    .carousel-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .carousel-buttons button {
+      background-color: #fff;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      pointer-events: all;
+      z-index: 20;
+      margin: 0 10px;
+    }
+    .carousel-buttons button:hover {
+      background-color: #007BFF;
+      color: white;
+    }
+    .carousel-dots {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .carousel-dots span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: #ccc;
+      margin: 0 5px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .carousel-dots .active {
+      background-color: #007BFF;
+    }
+    .boton {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: white;
+      color: black;
+      border: 2px solid black;
+      border-radius: 12px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      margin-left: 25%;
+      position: relative;
+      cursor: pointer; /* Añadir cursor para indicar que es clicable */
+    }
+    .additional-content {
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+    .scroll-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #209a2a;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 10px 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      display: none;
+      z-index: 100;
+    }
+    .scroll-to-top:hover {
+      background-color: #0056b3;
+    }
+    .scroll-to-top::before {
+      content: '▲'; /* Flecha para subir */
+      font-size: 20px;
+    }
+    .containerTarjeta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      width: 80%;
+      max-width: 1000px; /* ancho maximo del contenedor */
+    }
+    .panelTarjetaAlone {
+      background-color: #38c67f;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: calc(33.333% - 16px); /* Ajusta el ancho de los paneles */
+      aspect-ratio: 1; /* Mantiene el panel cuadrado */
+      padding: 8px; /* Reduce el espacio interno */
+      box-sizing: border-box;
+      position: relative;
+    }
+    .panelTarjetaAlone img {
+      position: absolute;
+      top: 8px; /* Espacio desde la parte superior del panel */
+      right: 8px; /* Espacio desde el lado derecho del panel */
+      width: 60px; /* Ajusta el tamaño de la imagen */
+      height: auto;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+    .panelTarjetaAlone .info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px; /* Espacio entre líneas de información */
+      padding-top: 8px; /* Espacio superior para evitar superposición con la imagen */
+    }
+    .panelTarjetaAlone h2 {
+      margin-top: 0;
+      font-size: 1em; /* Reduce el tamaño de la fuente */
+      color: #000000;
+    }
+    .panelTarjetaAlone p {
+      font-size: 0.8em; /* Reduce el tamaño de la fuente */
+      color: #ffffff;
+      margin: 0;
+    }
+
+
+    .boton-personalizado {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: white;
+    color: black;
+    border: 3px solid white;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .boton-personalizado:hover {
+    background-color: #f0f0f0; /* Cambia el color de fondo al pasar el mouse */
+  }
+
+
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    heigh t: 100vh;
+    position: relative;
+} */
+
+.content {
+    padding: 20px;
+    text-align: center;
+}
+
+.botonNewForm {
+    position: absolute;
+    top: 50px;  /* Ajusta la posición superior */
+    right: 50px;  /* Ajusta la posición derecha */
+    padding: 10px 20px;
+    background-color: #38c67f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.botonNewForm:hover {
+    background-color: #209a2a;
+}

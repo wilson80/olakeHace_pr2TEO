@@ -1,0 +1,119 @@
+DROP DATABASE IF EXISTS proyectoHelloWorld;
+
+CREATE DATABASE proyectoHelloWorld;
+USE proyectoHelloWorld;
+-- Crear base de datos
+
+CREATE TABLE equipos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    pais VARCHAR(100),
+    fundacion YEAR,
+    imagen_path VARCHAR(255), -- path de la imagen del equipo
+    partidas_jugadas INT DEFAULT 0,
+    partidas_ganadas INT DEFAULT 0
+);
+
+CREATE TABLE jugadores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    equipo_id INT,
+    edad INT NOT NULL,
+    altura DECIMAL(5,2),
+    peso DECIMAL(5,2),
+    nacionalidad VARCHAR(100),
+    fecha_insercion DATE DEFAULT CURRENT_DATE,
+    total_anotaciones INT DEFAULT 0,
+    partidos_ganados INT DEFAULT 0,
+    partidos_jugados INT DEFAULT 0,
+    imagen_path VARCHAR(255), -- pathh de la imagen del jugador
+    FOREIGN KEY (equipo_id) REFERENCES equipos(id)
+);
+
+CREATE TABLE encuentros (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    equipo_local_id INT,
+    equipo_visitante_id INT,
+    goles_local INT DEFAULT 0,
+    goles_visitante INT DEFAULT 0,
+    fecha DATE,
+    lugar VARCHAR(255),
+    edicion VARCHAR(100),
+    resultado VARCHAR(50), -- 'Equipo Local', 'Equipo Visitante', 'Empate'
+    FOREIGN KEY (equipo_local_id) REFERENCES equipos(id),
+    FOREIGN KEY (equipo_visitante_id) REFERENCES equipos(id)
+);
+
+
+
+-- Insertar datos de ejemplo en equipos
+INSERT INTO equipos (nombre, pais, fundacion, imagen_path, partidas_jugadas, partidas_ganadas) 
+VALUES ('Equipo A', 'España', 1920, 'assets/img/equipos/equipo_a.png', 20, 12);
+
+INSERT INTO equipos (nombre, pais, fundacion, imagen_path, partidas_jugadas, partidas_ganadas) 
+VALUES ('Equipo B', 'Brasil', 1930, 'assets/img/equipos/equipo_b.png', 18, 10);
+
+-- Insertar datos de ejemplo en jugadores
+INSERT INTO jugadores (nombre, equipo_id, edad, altura, peso, nacionalidad, total_anotaciones, partidos_ganados, partidos_jugados, imagen_path) 
+VALUES ('Jugador 1', 1, 24, 1.80, 75.5, 'España', 10, 8, 15, 'assets/img/jugadores/jugador_1.png');
+
+INSERT INTO jugadores (nombre, equipo_id, edad, altura, peso, nacionalidad, total_anotaciones, partidos_ganados, partidos_jugados, imagen_path) 
+VALUES ('Jugador 2', 1, 19, 1.75, 70.0, 'España', 5, 6, 12, 'assets/img/jugadores/jugador_2.png');
+
+INSERT INTO jugadores (nombre, equipo_id, edad, altura, peso, nacionalidad, total_anotaciones, partidos_ganados, partidos_jugados, imagen_path) 
+VALUES ('Jugador 3', 2, 22, 1.85, 80.0, 'Brasil', 15, 10, 18, 'assets/img/jugadores/jugador_3.png');
+
+-- Insertar datos de ejemplo en encuentros
+INSERT INTO encuentros (equipo_local_id, equipo_visitante_id, goles_local, goles_visitante, fecha, lugar, edicion, resultado) 
+VALUES (1, 2, 3, 2, '2024-09-01', 'Estadio Local', 'Edición 2024', 'Equipo Local');
+
+
+
+
+
+
+
+
+
+
+
+Abstraccion de informacion a mostra en la pagina de noticias
+
+Equipos
+Cantida partidas jugadas
+Cantida partidas ganadas
+pais
+fundacion
+Cantidad jugadores
+imagen del Equipo
+
+Encuentros
+mostrar el nombre de los dos Equipos 
+mostrar la cantidad de goles de cada Equipo 
+mostrar la fecha del encuentro 
+mostrar el lugar del encuentro 
+mostrar el edicion del encuentro 
+mostrar al ganador
+imagen de cada Equipo
+
+
+Top jugadores 
+mostrar jugador mas joven
+mostrar jugador con mas anotaciones
+mostrar jugador con mas partidas ganadas
+imagen del jugador
+
+Todos los jugadores
+mostrar todos los jugadores por Equipo 
+(nombre, Equipo, fecha de insercion, edad, altura, peso, imagen, nacionalidad) 
+
+
+
+
+
+
+
+
+
+
+
