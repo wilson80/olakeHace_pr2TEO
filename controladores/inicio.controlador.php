@@ -12,8 +12,8 @@ class InicioControlador{
     
    public function Inicio(){
     // require_once "vista/encabezado.php";    
-                            //  require_once "vista/inicioS/index.php";
-                        header("location:?c=login");
+                             require_once "vista/inicioS/index.php";
+                        // header("location:?c=login");
 
                         
                         //  require_once "vista/users/user/index.php"; 

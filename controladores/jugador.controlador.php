@@ -11,9 +11,9 @@ class JugadorControlador{
     }
 
     public function Inicio(){
-        // require_once "vista/encabezado.php";
+        require_once "vista/encabezado.php";
         require_once "vista/jugadores/index.php";
-        // require_once "vista/pie.php";
+        require_once "vista/pie.php";
     }
 
 

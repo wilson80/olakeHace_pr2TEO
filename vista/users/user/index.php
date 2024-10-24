@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -250,16 +251,24 @@ ul li {
 
     <div class="container">
         <!-- Panel izquierdo (logo, usuario y eventos) -->
-        <div class="sidebar">
-            <img src="assets/img/logo.png" alt="Logo">
-            <h2>Usuario</h2>
-            <h3>Jon1</h3>
-            <button>Mis eventos</button>
+        <div class="sidebar">           
+             <a href="?c=user">
+                <img  src="assets/img/logo.png" alt="Logo">
+            </a>
+            <h2>Usuario comun</h2>
+            <h3>ussss:<?=  $_SESSION['username'] ?> </h3>
+            <a href="">
+                
+                <button>Mis eventos</button>
+            </a>
             <hr>
             <hr>
             <hr>
-            <button>Cerrar Sesion</button>
+            <a class="" href="?c=logout">
+                <button  >Cerrar Sesion</button>
+            </a>
         </div>
+
             <div class="notification">
                 <i class="fa-sharp fa-solid fa-bell" style="color: #ffffff;"></i>
             </div>
@@ -273,7 +282,7 @@ ul li {
  
  
 
-        <?php foreach($this->modelo->viewEquipos() as $eq):?>         <!--ciclo for -->
+        <?php foreach($this->modelo->viewPublications($this->filtro) as $eq):?>         <!--ciclo for -->
                 <div class="tarjeta">
                     <div class="contenido">
                         <div class="informacion">

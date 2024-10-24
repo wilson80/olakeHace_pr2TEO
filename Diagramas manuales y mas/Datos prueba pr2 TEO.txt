@@ -1,0 +1,129 @@
+ 
+ INSERT INTO estado (nombre_estado) VALUES ('Pendiente');
+ INSERT INTO estado (nombre_estado) VALUES ('Aceptada');
+ INSERT INTO estado (nombre_estado) VALUES ('Vencida');
+ INSERT INTO estado (nombre_estado) VALUES ('Rechazada');
+ INSERT INTO estado (nombre_estado) VALUES ('Reportada');
+ 
+
+INSERT INTO categorias (nombre_categoria) VALUES ('deporte');
+INSERT INTO categorias (nombre_categoria) VALUES ('cocina');
+INSERT INTO categorias (nombre_categoria) VALUES ('política');
+INSERT INTO categorias (nombre_categoria) VALUES ('religioso');
+INSERT INTO categorias (nombre_categoria) VALUES ('académica');
+INSERT INTO categorias (nombre_categoria) VALUES ('cultural');
+INSERT INTO categorias (nombre_categoria) VALUES ('historia');
+
+
+
+INSERT INTO motivo (descripcion_motivo) VALUES ('Contenido violento');
+INSERT INTO motivo (descripcion_motivo) VALUES ('Contenido enganoso');
+INSERT INTO motivo (descripcion_motivo) VALUES ('Ubicado en categoria incorrecta');
+INSERT INTO motivo (descripcion_motivo) VALUES ('Parece spam');
+INSERT INTO motivo (descripcion_motivo) VALUES ('incita al odio');
+INSERT INTO motivo (descripcion_motivo) VALUES ('Contenido no apto para publico sensible');
+
+
+INSERT INTO tipo (id_categoria, descripcion_publico) VALUES (1, 'adulto');
+INSERT INTO tipo (id_categoria, descripcion_publico) VALUES (1, 'infantil');
+INSERT INTO tipo (id_categoria, descripcion_publico) VALUES (1, 'familiar');
+
+INSERT INTO rol (nombre_rol) VALUES ('Amin');
+INSERT INTO rol (nombre_rol) VALUES ('publicator');
+INSERT INTO rol (nombre_rol) VALUES ('user');
+
+
+
+INSERT INTO usuario (id_rol, user, password) VALUES (1, 'admin', 'admin');
+INSERT INTO usuario (id_rol, user, password) VALUES (2, 'publicator', 'publicator');
+INSERT INTO usuario (id_rol, user, password) VALUES (3, 'user', 'user');
+INSERT INTO usuario (id_rol, user, password) VALUES (2, 'pub', 'pub');
+INSERT INTO usuario (id_rol, user, password) VALUES (2, 'pub3', 'pub3');
+
+
+
+
+INSERT INTO usuario (id_rol, id_info, user, password) VALUES (1, 1, 'usuario123', 'password123');
+
+SELECT * FROM usuario WHERE user = 'usuario123' AND password = 'password123';
+
+--informacion del usuario
+SELECT rol.nombre_rol, usuario.user, info_usuario.nombre, info_usuario.apellido, info_usuario.tel, info_usuario.gmail
+FROM usuario
+JOIN rol ON usuario.id_rol = rol.id_rol
+JOIN info_usuario ON usuario.id_info = info_usuario.id_info
+WHERE usuario.user = 'usuario123';
+
+--buscar notificaciones
+SELECT titulo, descripcion FROM notificacion WHERE id_user = 1;
+
+
+--insertar un reporte
+INSERT INTO reporte (id_publicacion, id_motivo, fecha_report) VALUES (1, 1, NOW());
+
+
+--asistenciAS por id usuario
+SELECT publicacion.* FROM asistencia
+JOIN publicacion ON asistencia.id_publicacion = publicacion.id_publicacion
+WHERE asistencia.id_usuario = 1;
+
+
+
+-- insertando PUBLICACION
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
+VALUES (2, 2, 1, 'Centro de Convenciones', '2024-10-20 10:00:00', 'Evento de tecnología', 200, 'pub 1', 1);
+-- insertando PUBLICACION
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
+VALUES (2, 2, 1, 'Centro de Convenciones', '2024-10-20 10:00:00', 'Evento de tecnología', 200, 'pub 2', 2) ;
+-- insertando PUBLICACION
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
+VALUES (2, 2, 1, 'Centro de Convenciones', '2024-10-20 10:00:00', 'Evento de tecnología', 200, 'pub 3', 3);
+-- insertando PUBLICACION
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
+VALUES (2, 2, 1, 'Centro de Convenciones', '2024-10-20 10:00:00', 'Evento de tecnología', 200, 'pub 4', 4);
+-- insertando PUBLICACION
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
+VALUES (2, 2, 1, 'Centro de Convenciones', '2024-10-20 10:00:00', 'Evento de tecnología', 200, 'pub 5', 5);
+-- insertando PUBLICACION
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
+VALUES (2, 1, 1, 'Centro de Convenciones', '2024-10-20 10:00:00', 'Evento de tecnología', 200, 'pub 6', 6);
+
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
+VALUES (5, 1, 1, 'Centro de Convenciones', '2024-10-20 10:00:00', 'Evento de tecnología', 200, 'pub 6', 7);
+
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
+VALUES (5, 2, 1, 'Centro de Convenciones', '2024-10-20 10:00:00', 'Evento de tecnología', 200, 'pub 8', 7);
+
+
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
+VALUES (5, 3, 1, 'Centro de Convenciones', '2024-10-20 10:00:00', 'Evento de tecnología', 200, 'pub 8', 7);
+
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
+VALUES (5, 4, 1, 'Centro de Convenciones', '2024-10-20 10:00:00', 'Evento de tecnología', 200, 'pub 8', 7);
+
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
+VALUES (5, 5, 1, 'Centro de Convenciones', '2024-10-20 10:00:00', 'Evento de tecnología', 200, 'pub 8', 7);
+
+
+(el estado lo doy yo automaticamente como pendiente)
+
+
+quiero una consulta como esta pero quiero poder insertar un id_
+-- insertando PUBLICACION
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo)
+VALUES (2, 2, 1, 'Centro de Convenciones', '2024-10-20 10:00:00', 'Evento de tecnología', 200, 'pub 1');
+
+
+
+
+
+-- publicaciones Pendientes
+SELECT * FROM publicacion WHERE id_estado = (SELECT id_estado FROM estado WHERE nombre_estado = 'Pendiente');
+
+-- publiaciones aceptadas
+SELECT * FROM publicacion WHERE id_estado = (SELECT id_estado FROM estado WHERE nombre_estado = 'Aceptada');
+
+
+-- publiaciones por id_user
+SELECT * FROM publicacion WHERE id_user = 1;
+
