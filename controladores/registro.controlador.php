@@ -23,7 +23,7 @@ class RegistroControlador{
          
         $e = new User();
         
-        $e->setIdRol(1);
+        $e->setIdRol(2);
         $e->setNombre($_POST['username']);
         $e->setpasswords($_POST['password']);
         $lastInsertId = $this->user->insertUsuario($e);

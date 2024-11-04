@@ -1,4 +1,7 @@
 <?php session_start(); ?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -282,7 +285,7 @@ ul li {
  
  
 
-        <?php foreach($this->modelo->viewPublications($this->filtro) as $eq):?>         <!--ciclo for -->
+        <?php foreach($this->modelo->viewPublications("Aceptada") as $eq):?>         <!--ciclo for -->
                 <div class="tarjeta">
                     <div class="contenido">
                         <div class="informacion">
@@ -292,21 +295,23 @@ ul li {
                             <p>Fecha: <span><?=$eq->fecha_hora?></span></p>
                             <p>Categoria: <span><?=$eq->nombre_categoria?></span></p>
                             <p>Tipo publico: <span><?=$eq->tipoPublico?></span></p>
+                            <p>Iddd: <span><?=$eq->id_publicacion?></span></p>
                         </div>
                         <div class="imagen">
                             <img src="https://media.gettyimages.com/id/472324721/es/vector/rally-de-demostraci%C3%B3n.jpg?s=612x612&w=gi&k=20&c=rnxvRUQmuLfif1cEpkWA0UALppYpIx_1-zY5y20lWK8=" alt="Imagen del evento">
                         </div>
                     </div>
                     <div class="botones-tarjeta">
-                        <button class="reportar-btn">Reportar</button>
+                        <button class="reportar-btn" data-id="<?=$eq->id_publicacion?>">Reportar</button>
                         <button>+ Asistir</button>
                         <button>ver más detalles</button>
+
                     </div>
                     
+
+
                 </div>
-                <!-- <img src="<?php echo htmlspecialchars($eq->imagen_equipo); ?>" alt="Imagen "> -->
-                <!-- <h2><?=$eq->equipo?></h2> -->
-  
+ 
         <?php endforeach;?> 
         
  
@@ -319,7 +324,7 @@ ul li {
 
 
 
-
+    
 
  
 
@@ -351,7 +356,17 @@ ul li {
 
     
 <script>
-    // Mostrar la ventana modal al hacer clic en el botón "reportar"
+
+
+
+
+
+
+
+   // Variable global para almacenar el ID de la publicación
+let currentPublicationId = null;
+
+// Mostrar la ventana modal al hacer clic en el botón "reportar"
 document.querySelectorAll('.reportar-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
         // Obtener el título de la publicación correspondiente
@@ -359,21 +374,26 @@ document.querySelectorAll('.reportar-btn').forEach(function(btn) {
         
         // Colocar el título en el modal
         document.getElementById('titulo-publicacion').textContent = "Reportando: " + tituloPublicacion;
-        
+
+        // Obtener el ID de la publicación
+        currentPublicationId = this.getAttribute('data-id'); // Guardar el ID de la publicación
+
         // Mostrar el modal
         document.getElementById('modal').style.display = 'flex';
     });
 });
 
 // Validar y cerrar la ventana modal al hacer clic en "Enviar"
-document.getElementById('enviar-btn').addEventListener('click', function() {
+document.getElementById('enviar-btn').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevenir el envío del formulario
+
     // Verificar si hay un radio button seleccionado
     const selectedReason = document.querySelector('input[name="razon"]:checked');
     
     // Verificar el valor del input de "Otro" si la opción "Otro" está seleccionada
     const otherReasonInput = document.getElementById('otra-razon');
     const otherReasonText = otherReasonInput.value.trim();
-    
+
     if (!selectedReason) {
         alert('Por favor selecciona una razón antes de enviar.');
         return;
@@ -385,28 +405,32 @@ document.getElementById('enviar-btn').addEventListener('click', function() {
         return;
     }
 
-    // Si se pasa la validación, cerrar el modal y mostrar el mensaje de éxito
+    // Ahora puedes usar currentPublicationId para obtener el ID de la publicación
+    alert("ID de la publicación: " + currentPublicationId);
+    
+
+
+
+
     document.getElementById('modal').style.display = 'none'; // Ocultar modal
     mostrarMensajeExito(); // Mostrar mensaje de éxito
 });
 
-// Cerrar la ventana modal al hacer clic en "Cancelar"
-document.getElementById('cancelar-btn').addEventListener('click', function() {
-    document.getElementById('modal').style.display = 'none'; // Ocultar modal
-});
 
-// Función para mostrar el mensaje de éxito
-function mostrarMensajeExito() {
-    var mensaje = document.getElementById('mensaje-exito');
-    mensaje.classList.add('active');
-    
-    // Ocultar el mensaje después de 3 segundos
-    setTimeout(function() {
-        mensaje.classList.remove('active');
-    }, 3000);
-}
+
+
+
+
+
+
+
+
+
 
 </script>
+
+
+
 
 
 
