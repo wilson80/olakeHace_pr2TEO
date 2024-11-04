@@ -3,13 +3,13 @@
 <?php
 
 session_start();
-require_once "modelos/Jugador.php";
+// require_once "modelos/Jugador.php";
 
 class LogoutControlador{
     private $modelo;
 
     public function __CONSTRUCT(){
-        $this->modelo = new Jugador;
+        // $this->modelo = new Jugador;
     }
 
     public function Inicio(){

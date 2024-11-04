@@ -24,22 +24,21 @@ class UserControlador{
                     require_once "vista/users/publicator/index.php"; 
                     break;
                 case 1: 
-                        header("location:?c=admin");
-                        // require_once "vista/users/admin/index.php"; 
-                    break;
+                        require_once "vista/users/admin/index.php"; 
+                    break;  
                 default:
-                    header('Location: /olakeH/');
-                    break;
+                
+                
+                break;
             }
         } else {
-            require_once "vista/inicioS/index.php"; 
-            // header('Location: /gamer_pro/index.php#login');
+            // header('Location: vista/inicio/invitado.php');
+            require_once "vista/inicio/invitado.php"; 
         }
         exit(); 
-        // require_once "vista/encabezado.php";
-        // require_once "vista/topsJugadores/index.php";
-        // require_once "vista/pie.php";
     }
+
+     
 
 
 

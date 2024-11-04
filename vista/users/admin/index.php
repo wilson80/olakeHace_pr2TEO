@@ -320,9 +320,6 @@ ul li {
             <a href="">
                 <button>Ban users</button>
             </a>
-            <hr>
-            <hr>
-            <hr> 
             <a class="" href="?c=logout">
                 <button  >Cerrar Sesion</button>
             </a>

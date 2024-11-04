@@ -420,7 +420,7 @@ ul li {
 
 
 <!-- Formulario para nueva publicación -->
-<form id="form-publication" class="publication-form" method="POST"   action="?c=newPublication&a=insertPublication">
+<form id="form-publication" class="publication-form" method="POST"   action="?c=userPublicator&a=insertPublication">
 <!-- <form id="form-publication" class="publication-form" > -->
     <input type="hidden" id="id_user" name="id_user" value="<?= $_SESSION['id'] ?>">
     <input type="hidden" id="estado" name="estado" value="1">

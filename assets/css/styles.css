@@ -1,0 +1,32 @@
+body {
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo opaco */
+}
+.login-container {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 40px; /* Aumenta el espacio interior */
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
+    max-width: 600px; /* Aumenta el ancho máximo del contenedor */
+    width: 90%; /* Hace que el contenedor use el 90% del ancho disponible */
+}
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.logo-container img {
+    width: 320px; /* Aumenta el tamaño del logo */
+    height: 300px;
+}
+.form-control {
+    border-radius: 30px;
+}
+.btn-primary {
+    border-radius: 30px;
+}
+.guest-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+}

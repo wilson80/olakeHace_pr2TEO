@@ -29,6 +29,7 @@ class adminControlador{
         require_once "vista/users/admin/index.php"; 
         // exit;
     }
+     
  
  
 

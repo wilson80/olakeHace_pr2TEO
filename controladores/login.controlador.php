@@ -7,18 +7,18 @@ error_reporting(E_ALL);
 session_start();
 
 
-require_once "modelos/Publicacion.php";
+// require_once "modelos/Publicacion.php";
+ 
 include "modelos/login_svc.php";
-// require_once "vista/users/user/index.php";
-
-// header("location:?c=user");
-
+ 
 
 class loginControlador{
     private $modelo;
-
+    private $user;
+    
     public function __CONSTRUCT(){
-        $this->modelo = new Publicacion;
+        // $this->modelo = new Publicacion;
+      
     }
 
     public function Inicio(){
@@ -44,16 +44,17 @@ class loginControlador{
             // header('Location: /olakeH/controladores/identificateUser.php');
             exit();
         }
+         
+    }
+ 
 
 
+  
 
 
-
-
-        // require_once "vista/encabezado.php";
-        // require_once "vista/users/user/index.php"; 
-        // require_once "vista/topsJugadores/index.php";
-        // require_once "vista/pie.php";
+    public function otra(){
+        // header("location: ?c=admin");
+        // exit;
     }
 
 
