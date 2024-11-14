@@ -1,10 +1,21 @@
 <?php
  
 class database{
+    // CREATE USER 'user_proyect_finak'@'localhost' IDENTIFIED BY 'proyectofinal';
+    // GRANT SELECT, INSERT, UPDATE, DELETE ON dbolake.* TO 'user_proyect_finak'@'localhost';
+    
+
    const servidor = "localhost"; 
    const  usuariobd = "root";
    const  clave = "";
    const  nombrebd = "bd_olake";
+//    const servidor = "localhost"; 
+//    const  usuariobd = "root";
+//    const  clave = "";
+//    const  nombrebd = "bd_olake";
+
+   
+//    const  nombrebd = "bd_olake";
 
 
     public static function conectar(){

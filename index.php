@@ -6,8 +6,8 @@ require_once "modelos/database.php";
 
 if(!isset($_GET['c'])){
    
-    require_once "controladores/user.controlador.php";
-    $controlador = new userControlador();
+    require_once "controladores/inicio.controlador.php";
+    $controlador = new InicioControlador();
     call_user_func(array($controlador, "Inicio"));
 }else{
     $controlador = $_GET['c'];

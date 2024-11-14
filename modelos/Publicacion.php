@@ -95,27 +95,64 @@ class Publicacion{
         // $filtro = "Aceptada";
         try{
             $consulta = $this->pdo->prepare("
-            SELECT publicacion.*, estado.nombre_estado, tipo.descripcion_publico AS tipoPublico, categorias.nombre_categoria
-            FROM publicacion
-            JOIN estado ON publicacion.id_estado = estado.id_estado
-            JOIN tipo ON publicacion.id_tipo = tipo.id_tipo
-            JOIN categorias ON tipo.id_categoria = categorias.id_categoria
-            WHERE estado.nombre_estado = :estado;
+            SELECT * FROM vista_publicacion_completa;
             ");
-            $consulta->bindParam(':estado', $filtro);
+            // $consulta->bindParam(':estado', $filtro);
             
-            $consulta->execute();
+            $consulta->execute(); 
             return $consulta->fetchAll(PDO::FETCH_OBJ);
 
         }catch(Exception $e){
             die($e->getMessage());
         }
+     }  
+
+
+
+     public function viewFiltradas_estados($filtro){        //Listar publicaciones aceptadas
+        // WHERE estado.nombre_estado = 'Aceptada';
+        // $filtro = "Aceptada";
+        try{
+            $consulta = $this->pdo->prepare("
+            CALL vista_publicacion_completa_param(:fil);
+            ");
+            $consulta->bindParam(':fil', $filtro);
+            
+            $consulta->execute(); 
+            return $consulta->fetchAll(PDO::FETCH_OBJ);
+
+        }catch(PDOException $e){
+            die($e->getMessage());
+        }
+     }   
+        
+     
+
+     public function viewUnaPublicacion($id){        //Listar publicaciones aceptadas
+        // WHERE estado.nombre_estado = 'Aceptada';
+        // $id = "Aceptada";
+        try{
+            
+            $consulta = $this->pdo->prepare("
+            CALL vista_una_publicacion(:fil);
+             ");
+            $consulta->bindParam(':fil', $id);
+            
+            $consulta->execute(); 
+            return $consulta->fetch(PDO::FETCH_OBJ);
+
+
+        }catch(PDOException $e){
+            die($e->getMessage());
+        }
      }    
 
 
-     public function viewPublications_byUser($user){        //Listar publicaciones aceptadas
-        // WHERE estado.nombre_estado = 'Aceptada';
-        // $filtro = "Aceptada";
+
+
+ 
+     
+     public function viewPublications_byUser($user){         
         try{
             $consulta = $this->pdo->prepare("
             SELECT publicacion.*, estado.nombre_estado, tipo.descripcion_publico AS tipoPublico, categorias.nombre_categoria
@@ -130,18 +167,52 @@ class Publicacion{
             $consulta->execute();
             return $consulta->fetchAll(PDO::FETCH_OBJ);
 
-        }catch(Exception $e){
+        }catch(PDOException $e){
             die($e->getMessage());
         }
      }
-
- 
-
- 
      
-   
+     
+     public function getReportesByid($id){     
+        try{
+            $consulta = $this->pdo->prepare("SELECT 
+                reporte.id_reporte,
+                reporte.id_publicacion,
+                reporte.id_motivo,
+                motivo.descripcion_motivo AS motivo,
+                reporte.id_estado,
+                estadoReporte.nombre_estado AS estado,
+                reporte.id_reportador,
+                usuario.user AS reportador,
+                reporte.fecha_report
+            
+                FROM 
+                reporte
+                JOIN 
+                motivo ON reporte.id_motivo = motivo.id_motivo
+                JOIN 
+                estadoReporte ON reporte.id_estado = estadoReporte.id_estado
+                JOIN 
+                usuario ON reporte.id_reportador = usuario.id_user
+                WHERE  reporte.id_publicacion = :id;
+            ");
 
+    
+            $consulta->bindParam(':id', $id);
+            $consulta->execute();
+                      
+      
+            return $consulta->fetchAll(PDO::FETCH_OBJ);
 
+        }catch(PDOException $e){
+            die($e->getMessage());
+        }
+     }     
+     
+     
+     
+     
+ 
  
 
 // public function insertPublication(Publicacion $j){
@@ -152,17 +223,15 @@ class Publicacion{
 //     "INSERT INTO publicacion (id_user, 
 //     id_estado, id_tipo,titulo,descripcion,lugar,fecha_hora,cantidad_asistentes,id_cat)
 //     VALUES (?,?,?,?,?,?,?,?,?)";
-    
-        
+     
          
 //         // "INSERT INTO
 //         // jugadores (nombre, equipo_id, edad, altura, peso, nacionalidad, total_anotaciones, partidos_ganados, partidos_jugados) 
 //         // VALUES (?,?,?,?,?,?,?,?,?)";
-
-
+ 
 //         $this->pdo->prepare($consulta)->execute(array(
 //             $j->getId(),
-             
+            
 //         )
         
 //     );
@@ -175,6 +244,33 @@ class Publicacion{
 // }
 
 
+//////pendient4e
+public function updateReporte($id, $idE){
+    try{
+        $sql = " UPDATE reporte     
+                 set id_estado = :id
+                 WHERE id_reporte = :idE;
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':idE', $idE);
+        
+        // Ejecutar la consulta
+        $stmt->execute();
+
+        // header("location:?c=user");
+
+        // echo "Evento insertado correctamente!";
+    }catch(PDOException $e){
+        echo "Error al insertar publicacion: " . $e->getMessage();
+        exit;
+        // header("location:?c=user");
+    }
+
+
+}
+
+ 
 
 
 
@@ -202,6 +298,38 @@ public function insertPublication2($publication){
         // echo "Evento insertado correctamente!";
     }catch(PDOException $e){
         echo "Error al insertar publicacion: " . $e->getMessage();
+        exit;
+        // header("location:?c=user");
+    }
+
+
+    
+ 
+}
+
+
+
+public function getPermisosUser($idUser){
+    try{
+        $sql = "SELECT aprobAuto 
+                FROM gestion_permisos
+                WHERE id_user = :idUser;" 
+        ;
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':idUser', $idUser);
+         
+        
+        // Ejecutar la consulta
+        $stmt->execute();
+        $id_permiso = $stmt->fetch();
+
+        return $id_permiso;
+        // header("location:?c=user");
+
+        // echo "Evento insertado correctamente!";
+    }catch(PDOException $e){
+        echo "Error al insertar publicacion: " . $e->getMessage();
+        exit;
         // header("location:?c=user");
     }
 

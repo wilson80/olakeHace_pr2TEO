@@ -5,6 +5,10 @@
  INSERT INTO estado (nombre_estado) VALUES ('Rechazada');
  INSERT INTO estado (nombre_estado) VALUES ('Reportada');
  INSERT INTO estado (nombre_estado) VALUES ('Oculta');
+
+ INSERT INTO estadoReporte (nombre_estado) VALUES ('Sin Revision');
+ INSERT INTO estadoReporte (nombre_estado) VALUES ('Ignorado');
+ INSERT INTO estadoReporte (nombre_estado) VALUES ('Aceptado');
  
 
 INSERT INTO categorias (nombre_categoria) VALUES ('deporte');
@@ -44,6 +48,7 @@ INSERT INTO usuario (id_rol, user, password) VALUES (2, 'pub3', 'pub3');
 
 
 
+
 INSERT INTO usuario (id_rol, id_info, user, password) VALUES (1, 1, 'usuario123', 'password123');
 
 SELECT * FROM usuario WHERE user = 'usuario123' AND password = 'password123';
@@ -55,18 +60,24 @@ JOIN rol ON usuario.id_rol = rol.id_rol
 JOIN info_usuario ON usuario.id_info = info_usuario.id_info
 WHERE usuario.user = 'usuario123';
 
---buscar notificaciones
+-- buscar notificaciones
 SELECT titulo, descripcion FROM notificacion WHERE id_user = 1;
 
 
---insertar un reporte
+    
+
+-- insertar un reporte
 INSERT INTO reporte (id_publicacion, id_motivo, fecha_report) VALUES (1, 1, NOW());
+
+
 
 
 --asistenciAS por id usuario
 SELECT publicacion.* FROM asistencia
 JOIN publicacion ON asistencia.id_publicacion = publicacion.id_publicacion
 WHERE asistencia.id_usuario = 1;
+
+
 
 
 
@@ -118,6 +129,7 @@ VALUES (2, 2, 1, 'Centro de Convenciones', '2024-10-20 10:00:00', 'Evento de tec
 
 
 
+
 -- publicaciones Pendientes
 SELECT * FROM publicacion WHERE id_estado = (SELECT id_estado FROM estado WHERE nombre_estado = 'Pendiente');
 
@@ -127,4 +139,14 @@ SELECT * FROM publicacion WHERE id_estado = (SELECT id_estado FROM estado WHERE 
 
 -- publiaciones por id_user
 SELECT * FROM publicacion WHERE id_user = 1;
+
+
+
+
+
+
+
+
+
+
 

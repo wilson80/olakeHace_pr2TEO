@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página con Carrusel</title>
+    <title>ola_ke_hace</title>
     <link rel="stylesheet" href="assets/css/styles2.css">
 </head>
 <body>
@@ -79,10 +79,7 @@
 
                         <div class="attendance"> Asistirán: <?= $eq->currentAsistentes?> </div> 
 
-                        <a href="?c=user">
-                            <button  class="details-button">Más detalles</button>
-
-                        </a>
+                        <button class="details-button">Más detalles</button>
                     </div>
                 </div>
                                 

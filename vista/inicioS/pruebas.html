@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz con Tarjetas Redondeadas</title>
+    <style>
+
+        
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+
+        .containerTarjetaPresentacion {
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        h1, h2 {
+            margin-top: 0;
+            font-weight: bold;
+        }
+
+        .buttonsPresentacion {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .buttonsPresentacion button {
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #6a5acd;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .buttonsPresentacion button:hover {
+            background-color: #483d8b;
+        }
+
+        .grid-containerTarjetaPresentacion {
+            display: grid;
+            grid-template-columns: 2fr 2fr; /* Aumenta el ancho de la segunda columna */
+            gap: 20px;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .card.large {
+            height: 300px;
+        }
+
+        .card.extra-large {
+            height: 300px;
+            width: 100%; /* Mantiene el ancho de la tarjeta al 100% del contenedor */
+        }
+
+        .card.small {
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .url-box {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        
+        .about-organizer {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="containerTarjetaPresentacion">
+        <h1>Sub Título</h1>
+        
+        <div class="buttonsPresentacion">
+            <button>Botón A</button>
+            <button>Botón B</button>
+        </div>
+
+        <h2>Detalles</h2>
+        
+        <div class="grid-containerTarjetaPresentacion">
+            <!-- Tarjeta grande izquierda (Detalles) -->
+            <div class="card large">
+                <p><span class="label">Categoría:</span></p>
+                <p><span class="label">Ubicación:</span></p>
+                <p><span class="label">Nombre:</span></p>
+                <p><span class="label">Público:</span> <span class="label">Categoría:</span></p>
+                <p><span class="label">Párrafo:</span></p>
+                <input type="text" placeholder="URL" class="url-box">
+            </div>
+            
+            <!-- Tarjeta extra grande derecha -->
+            <div class="card extra-large">
+                <!-- Contenido adicional si es necesario -->
+            </div>
+
+            <!-- Tarjeta combinada para Asistentes y Límite de Asistencia -->
+            <div class="card small">
+                <p class="label">Asistentes</p>
+                <p>Label: Asistirán</p>
+                <hr style="width: 100%; border-top: 1px solid #ccc;">
+                <p class="label">Límite de Asistencia</p>
+                <p>Label</p>
+            </div>
+        </div>
+
+        <h2>Sobre el Organizador</h2>
+        
+        <!-- Tarjeta sobre el organizador -->
+        <div class="card about-organizer">
+            <p><span class="label">Username:</span></p>
+            <p><span class="label">Nombres:</span></p>
+            <p><span class="label">Correo de contacto:</span></p>
+        </div>
+    </div>
+
+</body>
+</html>

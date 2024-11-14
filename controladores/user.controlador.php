@@ -21,10 +21,13 @@ class UserControlador{
                     require_once "vista/users/user/index.php"; 
                     break;
                 case 2:
-                    require_once "vista/users/publicator/index.php"; 
+                    header("location:?c=userPublicator");
+                    
+                    // require_once "vista/users/publicator/index.php"; 
                     break;
-                case 1: 
-                        require_once "vista/users/admin/index.php"; 
+                    case 1: 
+                        header("location:?c=admin");
+                        // require_once "vista/users/admin/index.php"; 
                     break;  
                 default:
                 
@@ -33,7 +36,12 @@ class UserControlador{
             }
         } else {
             // header('Location: vista/inicio/invitado.php');
-            require_once "vista/inicio/invitado.php"; 
+            require_once "vista/inicioS/index.php"; 
+            // header("location:?c=inicio");
+            
+            // require_once "vista/inicio/pruebas.php";
+            
+            
         }
         exit(); 
     }

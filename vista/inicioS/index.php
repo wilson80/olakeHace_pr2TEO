@@ -32,10 +32,7 @@
                 <div class="guest-link">
                     <a href="?c=registro">Registrarse ahora!</a>
                 </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="keepLogged">
-                    <label class="form-check-label" for="keepLogged">Mantener sesión iniciada</label>
-                </div>
+ 
             </form>
         </div>
     </div>
