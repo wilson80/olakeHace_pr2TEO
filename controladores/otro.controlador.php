@@ -9,22 +9,21 @@ class otroControlador {
         echo "Bienvenido al controlador de pubbs.";
     }
     
-    public function insertar() {//insertar reporte
+    public function insertar() {//insertarReporte reporte
     
-        // Verificamos que los datos `publicacion_id`, `razon` y `otra-razon` estén disponibles en `$_POST`
         if (isset($_POST['publicacion_id']) && isset($_POST['razon'])) {
             // Obtenemos los valores
             $publicacionId = $_POST['publicacion_id'];
             $razonSeleccionada = $_POST['razon'];
             
- 
-
-
             // Si la razón seleccionada es "Otro", obtenemos el valor del campo correspondiente
             $otraRazon = isset($_POST['otra-razon']) ? $_POST['otra-razon'] : null;
 
             // Determinamos el ID de motivo (en este caso, asumimos que `razon` es un texto; necesitarías un mapeo a IDs)
             $idMotivo = $this->mapRazonToId($razonSeleccionada, $otraRazon);
+
+         
+ 
 
             // Conectar a la base de datos
             $conexion = database::conectar();
@@ -45,7 +44,7 @@ class otroControlador {
 
                 // echo "Datos insertados exitosamente";
             } catch (PDOException $e) {
-                echo "Error al insertar los datos: " . $e->getMessage();
+                echo "Error al insertarReporte los datos: " . $e->getMessage();
             }
         } else {
             echo "Error: Parámetros `publicacion_id` o `razon` faltantes.";
@@ -56,17 +55,21 @@ class otroControlador {
     private function mapRazonToId($razon, $otraRazon) {
         // Mapeo de razones a IDs; aquí puedes agregar más razones según tu base de datos
         $motivos = [
-            "Spam" => 1,
-            "Contenido ofensivo" => 2,
-            "Violencia" => 3,
-            "Desinformación" => 4,
-            "Engañoso" => 5,
-            "Otro" => 6 // Puedes usar un ID específico para "Otro" o manejarlo de otra manera
+            "Contenido violento" => 1,
+            "Contenido enganoso" => 2,
+            "ubicado en categoria incorrecta" => 3,
+            "Parece Spam" => 4,
+            "Incita al odio" => 5,
+            "Contenido no apto para publico sensible" => 6, // Puedes usar un ID específico para "Otro" o manejarlo de otra manera
+            "Otro" => 7 // Puedes usar un ID específico para "Otro" o manejarlo de otra manera
         ];
 
+
+
+    
         // Si la razón seleccionada es "Otro", usa el valor del campo 'otra-razon'
         if ($razon === "Otro" && !empty($otraRazon)) {
-            // Aquí podrías manejar la lógica para insertar "Otra razón" en tu base de datos y retornar su ID
+            // Aquí podrías manejar la lógica para insertarReporte "Otra razón" en tu base de datos y retornar su ID
             // Por simplicidad, asumimos que lo guardamos y le asignamos un ID de 7
             return 7; // Esto debe ser reemplazado por la lógica de inserción
         }
@@ -74,6 +77,20 @@ class otroControlador {
         // Retornamos el ID correspondiente
         return isset($motivos[$razon]) ? $motivos[$razon] : null;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

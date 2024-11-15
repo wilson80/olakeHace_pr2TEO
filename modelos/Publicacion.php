@@ -371,6 +371,72 @@ public function getPermisosUser($idUser){
 
 
 
+public function insertarReporte($publicacionId, $idMotivo){
+
+    try{
+        $sql = "INSERT INTO reporte (id_publicacion, id_motivo, fecha_report) VALUES (:publicacionId, :idMotivo, NOW())";
+            
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':publicacionId', $publicacionId);
+        $stmt->bindParam(':idMotivo', $idMotivo);
+         
+        // Ejecutar la consulta
+        $stmt->execute();
+ 
+
+        // echo "Evento insertado correctamente!";
+    }catch(PDOException $e){
+        echo "Error al insertar publicacion: " . $e->getMessage();
+        exit;
+        // header("location:?c=user");
+    }
+}
+
+
+
+
+public function insertarMotivo($motivo){
+
+    try{
+        $sql = "CALL insertar_motivo(:motivo, @id_generado);
+            ";
+            
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':motivo', $motivo);
+         
+        // Ejecutar la consulta
+        $stmt->execute();
+    // Recuperar el id generado
+         $result = $this->pdo->query("SELECT @id_generado AS id_motivo")->fetch(PDO::FETCH_ASSOC);
+         
+         return $result['id_motivo'];
+
+        // echo "Evento insertado correctamente!";
+    }catch(PDOException $e){
+        echo "Error al insertar Motivo: " . $e->getMessage();
+        exit;
+        // header("location:?c=user");
+    }
+
+
+    
+ 
+}
+
+
+  
+
+ 
+
+
+
+
+
+
+
+
+
 
 
 

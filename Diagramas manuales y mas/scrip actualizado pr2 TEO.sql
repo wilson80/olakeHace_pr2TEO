@@ -243,14 +243,25 @@ DELIMITER ;
 
 
 
+DELIMITER //
 
+CREATE PROCEDURE insertar_motivo(
+    IN p_descripcion_motivo TEXT,
+    OUT p_id_motivo INT
+)
+BEGIN
+    -- Insertar el motivo en la tabla
+    INSERT INTO motivo (descripcion_motivo)
+    VALUES (p_descripcion_motivo);
 
+    -- Obtener el id_motivo generado automáticamente
+    SET p_id_motivo = LAST_INSERT_ID();
+END //
 
+DELIMITER ;
 
-
-
-
-
+ 
+ 
 
 
 

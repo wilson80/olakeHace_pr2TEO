@@ -46,7 +46,7 @@
                 <button onclick="cargarVista('?c=admin&filtrar&a=mostrarReportes&id=')" >Reportar</button>
         </div>
     </div>
-</div>
+</div>  
 
 
 <?php require_once "vista/users/admin/detallePub.php"; ?>

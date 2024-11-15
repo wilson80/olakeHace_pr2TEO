@@ -11,7 +11,7 @@ const totalCards = document.querySelectorAll('.card').length;
 
 
 
-        // Función para abrir el modal
+        // Función para abrir el modal formularioooo
         function abrirModal() {
             document.getElementById("overlay").style.display = "block";
         }
@@ -103,9 +103,7 @@ window.onclick = function(event) {
 
 
 
-
-
-    // Validar y enviar el formulario (esto puede adaptarse a tu lógica PHP o JS)
+ 
     // document.getElementById('submit-publication').addEventListener('click', function(event) {
 document.getElementById('form-publication').addEventListener('submit', function(event) {
   

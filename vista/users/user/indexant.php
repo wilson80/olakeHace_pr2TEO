@@ -146,13 +146,16 @@
 document.querySelectorAll('.reportar-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
         // Obtener el título de la publicación correspondiente
-        var tituloPublicacion = this.closest('.tarjeta').querySelector('h2').textContent;
+        // var tituloPublicacion = this.closest('.tarjeta').querySelector('h2').textContent;
 
         // Colocar el título en el modal
-        document.getElementById('titulo-publicacion').textContent = "Reportando: " + tituloPublicacion;
+        // document.getElementById('titulo-publicacion').textContent = "Reportando: " + tituloPublicacion;
 
         // Obtener el ID de la publicación
         currentPublicationId = this.getAttribute('data-id'); // Guardar el ID de la publicación
+
+        // Obtener el ID de la publicación
+        currentPublicationId = this.getAttribute('data-tittle'); // Guardar el ID de la publicación
         
         // Establecer el ID en el campo oculto del formulario
         document.getElementById('publicacion-id').value = currentPublicationId;

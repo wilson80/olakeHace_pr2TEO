@@ -21,6 +21,7 @@ class user_regControlador{
     
     public function Inicio(){
         // $this->filtrarPublications($this->filtro);
+    
         require_once "vista/users/user/index.php"; 
         // require_once "vista/users/admin/revision.php"; 
         // exit(); 
@@ -85,79 +86,66 @@ class user_regControlador{
         }
     }
 
+ 
+     
 
 
-    public function mostrarReportes() {
+    public function insertarReporte() {//insertarReporte reporte
+    
+
+       
+        if (isset($_POST['publicacion_id']) && isset($_POST['razon'])) {
+            // Obtenemos los valores
+            $publicacionId = $_POST['publicacion_id'];
+            $razonSeleccionada = $_POST['razon'];
+            
+            // Si la razón seleccionada es "Otro", obtenemos el valor del campo correspondiente
+            $otraRazon = isset($_POST['otra-razon']) ? $_POST['otra-razon'] : null;
+ 
+            // Determinamos el ID de motivo (en este caso, asumimos que `razon` es un texto; necesitarías un mapeo a IDs)
+            $idMotivo = $this->mapRazonToId($razonSeleccionada, $otraRazon);
 
 
-        if (isset($_GET['id'])) {
-            $this->currentId = $_GET['id'];
+            $this->modelo->insertarReporte($publicacionId, $idMotivo );
+
+            $this->Inicio();
 
         } else {
-            var_dump("No se recibio el id");
-            exit;
+            echo "Error: Parámetros `publicacion_id` o `razon` faltantes al insertar un reporte.";
+        }
+    }
+
+
+    private function mapRazonToId($razon, $otraRazon) {
+        // Mapeo de razones a IDs; aquí puedes agregar más razones según tu base de datos
+        $motivos = [
+            "Contenido violento" => 1,
+            "Contenido enganoso" => 2,
+            "ubicado en categoria incorrecta" => 3,
+            "Parece Spam" => 4,
+            "Incita al odio" => 5,
+            "Contenido no apto para publico sensible" => 6, // Puedes usar un ID específico para "Otro" o manejarlo de otra manera
+            "Otro" => 7 // Puedes usar un ID específico para "Otro" o manejarlo de otra manera
+        ];
+ 
+  
+        // Si la razón seleccionada es "Otro", usa el valor del campo 'otra-razon'
+        if ($razon === "Otro" && !empty($otraRazon)) {
+             $nuevoID = 1;
+             $nuevoID = $this->modelo->insertarMotivo($otraRazon);   
+            return $nuevoID; // Esto debe ser reemplazado por la lógica de inserción
         }
 
-        $this->reportes = $this->modelo->getReportesByid($this->currentId);
-        require_once "vista/users/admin/reportadas_reportes.php";
-    }
-    
-
-    public function mostrarFiltrarReportes() {
-        
-        $this->currentId = $_GET['id'];
-        $filtro = $_GET['tipor'];
-        $this->condicionRep = $_GET['tipor'];
-        switch($filtro){
-            case 1:
-                $this->filtroReporte = "Sin Revision";
-                break;
-                case 2:
-                    $this->filtroReporte = "Ignorado";
-                    break;
-                    case 3:
-                        $this->filtroReporte = "Aceptado";
-                        break;
-                    }
-                    
-        // var_dump("aquiii>>: " . $this->filtroReporte);
-        //         exit;
-        $this->reportes = $this->modelo->getReportesByid($this->currentId);
-                    
-
-            
-     
-        
-
-
-        require_once "vista/users/admin/reportadas_reportes.php";
+        // Retornamos el ID correspondiente
+        return isset($motivos[$razon]) ? $motivos[$razon] : null;
     }
 
-    public function updateReporte() {
-        $this->currentId =  $_GET['id'];
-        $id_r =  $_GET['id_e'];
-        $id_e = $_GET['id_r'];
-        
-        $this->modelo->updateReporte($id_r, $id_e);
-        $this->mostrarFiltrarReportes();
-        // mensaje exitooo
-        
-    }
-    
-    public function updatePub() {
-        $this->currentId = $_GET['id'];
-        $idUpdate = $_GET['idU'];
-        // var_dump("idP: " . $this->currentId);    
-        // var_dump("idUP: " . $idUpdate);
-        // exit;
-        $this->modelo->updatePublicacion($this->currentId, $idUpdate);
-
-        //update estado  publicacion (2 , 4) aceptada y rechazada
 
 
-        $this->Inicio();
-    }
-    
+
+
+
+
 
 
 
@@ -167,6 +155,14 @@ class user_regControlador{
      
  
  
+
+
+
+
+
+
+
+
 
 
 
