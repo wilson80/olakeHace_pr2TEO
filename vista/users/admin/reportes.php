@@ -147,7 +147,16 @@
         const dos = "&id_r=" + id_reporte;
         const tres = "&id_e=" + id_estado;
 
+        if(id_estado==2){
+            alert("Se ha ignorado un reporte");
+            
+        }else{
+            alert("Se ha aceptado un reporte");
+
+        }
+
         window.location.href = controlador + dos + tres;  // Redirige a la nueva URL
+        
     }
 </script>
 

@@ -117,6 +117,20 @@ CREATE TABLE reporte (
     FOREIGN KEY (id_motivo) REFERENCES motivo(id_motivo)
 );
 
+-- 'reportes a publicadores'
+CREATE TABLE reporte_pub (
+    id_reporte INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT,
+    id_motivo INT,
+    id_estado INT DEFAULT 1,
+    id_reportador INT,
+    fecha_report DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_estado) REFERENCES estadoReporte(id_estado),
+    FOREIGN KEY (id_reportador) REFERENCES usuario(id_user),
+    FOREIGN KEY (id_user) REFERENCES usuario(id_user),
+    FOREIGN KEY (id_motivo) REFERENCES motivo(id_motivo)
+);
+
 -- Tabla 'gestion_permisos'
 CREATE TABLE gestion_permisos (
     id_user INT,
@@ -281,9 +295,21 @@ BEGIN
     DECLARE idUser INT;
     DECLARE titulo_publicacion VARCHAR(250);
     -- Contar el número de reportes para la publicación dada
+
+
+    -- SELECT COUNT(*) INTO num_reportes
+    -- FROM reporte
+    -- WHERE id_publicacion = NEW.id_publicacion AND id_estado = 1;    -- (1 significa sin revision)
+    UPDATE publicacion
+    SET id_estado = 5  -- estado del  id de 'reportada' en la tabla estados
+    WHERE id_publicacion = NEW.id_publicacion;
+    
     SELECT COUNT(*) INTO num_reportes
     FROM reporte
-    WHERE id_publicacion = NEW.id_publicacion AND id_estado = 1;    -- (1 significa sin revision)
+    WHERE id_publicacion = NEW.id_publicacion 
+    AND id_estado != 2; -- Ignora los reportes con estado ignorado (id_estado = 2)
+
+
 
     -- Obteniendo el id del usuario publicador y el titulo de la publicacion
     SELECT id_user, titulo INTO idUser, titulo_publicacion
@@ -352,7 +378,7 @@ BEGIN
     IF NEW.id_estado = 2 THEN
             -- regresar la publicacion oculta a la normalidad
             UPDATE publicacion
-            set id_estado = 2       -- regresandola a la vista general
+            set id_estado = 5       -- regresandola a la vista general
             WHERE id_publicacion = NEW.id_publicacion;
  
     END IF;
@@ -375,6 +401,98 @@ END //
 
 DELIMITER ;
    
+
+
+
+
+
+
+
+DELIMITER //
+-- activa las aprobaciones automaticas
+CREATE OR REPLACE PROCEDURE actualizar_activar_publicaciones(
+    IN p_id_publicacion INT,
+    IN p_id_estado INT
+)
+BEGIN
+    DECLARE v_id_user INT;
+    DECLARE v_aprobaciones INT;
+
+    -- Obtener el id_user asociado a la publicación
+    SELECT id_user INTO v_id_user
+    FROM publicacion
+    WHERE id_publicacion = p_id_publicacion;
+
+    -- Verificar si el id_estado es 2
+    IF p_id_estado = 2 THEN
+                    -- actualizando la publicacion
+                UPDATE publicacion
+                SET id_estado = 2
+                WHERE id_publicacion = p_id_publicacion;
+                        -- NOTIFICAR APROBACION
+                INSERT INTO notificacion(id_user, titulo, descripcion, id_publicacion) 
+                VALUES (v_id_user, 'Publicacion Aceptada', 'Un admin ha Aceptado tu publicacion', p_id_publicacion);
+
+
+        -- Obtener el número de aprobaciones del usuario en gestion_permisos
+        SELECT aprobaciones INTO v_aprobaciones
+        FROM gestion_permisos
+        WHERE id_user = v_id_user;
+
+        -- Si aprobaciones es <= 2, incrementar en 1
+        IF v_aprobaciones <= 2 THEN
+            UPDATE gestion_permisos
+            SET aprobaciones = aprobaciones + 1
+            WHERE id_user = v_id_user;
+
+            IF v_aprobaciones + 1 = 2 THEN      -- activando las aprobaciones automaticas
+                UPDATE gestion_permisos
+                SET aprobAuto = 1
+                WHERE id_user = v_id_user;
+                -- notificar al user de las aprobaciones Automaticas
+                INSERT INTO notificacion( id_user, titulo, descripcion, id_publicacion) 
+                VALUES (v_id_user, 'Aprobaciones Automaticas ON','Se han activado las aprobaciones automaticas',p_id_publicacion);
+
+            END IF;
+        END IF;
+
+    -- Si el id_estado es 4, actualizar el estado de la publicación a 4
+    ELSEIF p_id_estado = 4 THEN
+        UPDATE publicacion
+        SET id_estado = 4
+        WHERE id_publicacion = p_id_publicacion;
+        -- notificar
+        INSERT INTO notificacion(id_user, titulo, descripcion, id_publicacion) 
+        VALUES (v_id_user, 'Publicacion Rechazada', 'Un admin ha rechazado tu publicacion', p_id_publicacion);
+
+
+    END IF;
+
+END //
+
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

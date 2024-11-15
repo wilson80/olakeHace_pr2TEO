@@ -125,6 +125,9 @@ class Publicacion{
             die($e->getMessage());
         }
      }   
+
+
+
         
      
 
@@ -270,6 +273,31 @@ public function updateReporte($id, $idE){
 
 }
 
+
+
+public function updatePublicacion($idP, $idE){
+    try{
+        $sql = "CALL actualizar_activar_publicaciones(:idP, :idE);
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':idP', $idP);
+        $stmt->bindParam(':idE', $idE);
+        
+        // Ejecutar la consulta
+        $stmt->execute();
+
+        // header("location:?c=user");
+
+        // echo "Evento insertado correctamente!";
+    }catch(PDOException $e){
+        echo "Error al actualizar Publicaciones(AceptarRechazar): " . $e->getMessage();
+        exit;
+        // header("location:?c=user");
+    }
+
+
+}
+
  
 
 
@@ -321,10 +349,12 @@ public function getPermisosUser($idUser){
         
         // Ejecutar la consulta
         $stmt->execute();
-        $id_permiso = $stmt->fetch();
 
-        return $id_permiso;
-        // header("location:?c=user");
+        // Obtener el valor de aprobAuto
+            $id_permiso = $stmt->fetchColumn();
+
+            return (int)$id_permiso;  // Convertir el resultado a un entero y devolverlo
+          
 
         // echo "Evento insertado correctamente!";
     }catch(PDOException $e){

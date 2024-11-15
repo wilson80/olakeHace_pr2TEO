@@ -4,7 +4,7 @@
 
 require_once "modelos/Publicacion.php";
 
-class adminControlador{
+class user_regControlador{
     private $titulo = "Aceptadas";
     private $modelo;
     private $currentId;
@@ -21,7 +21,7 @@ class adminControlador{
     
     public function Inicio(){
         // $this->filtrarPublications($this->filtro);
-        require_once "vista/users/admin/index.php"; 
+        require_once "vista/users/user/index.php"; 
         // require_once "vista/users/admin/revision.php"; 
         // exit(); 
         // require_once "vista/encabezado.php";
@@ -68,25 +68,16 @@ class adminControlador{
  
 
     public function mostrarPub() {
-        $this->titulo = $_SESSION['titulo'] ;
+        // $id = $_GET['id'];
+        // var_dump("id: ".$id);
+        // exit;
+        // $this->titulo = $_SESSION['titulo'] ;
         // Verificar si se recibe el parámetro 'id'
         if (isset($_GET['id'])) {
             $this->currentId = $_GET['id'];
-            switch($this->titulo){
-                case "Reportadas": 
-                    require_once "vista/users/admin/reportadas.php";
-                    break;
-                    case "Pendientes": 
-                        require_once "vista/users/admin/pendientes.php";
-                    break;
-                    case "Aceptadas": 
-                        require_once "vista/users/admin/revision.php";
-                    break;
-            } 
+            
+            require_once "vista/users/user/verpub.php";
 
-            // $id = $_GET['id'];
-            // var_dump("id: ".$id);
-            // exit;
             // Ahora puedes usar el valor de $id en tu lógica
         } else {
             var_dump("No se recibio el id");

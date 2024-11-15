@@ -18,7 +18,8 @@ class UserControlador{
         if (isset($_SESSION['username'])) {
             switch ($_SESSION['role']) {
                 case 3:
-                    require_once "vista/users/user/index.php"; 
+                    header("location:?c=user_reg");
+                    // require_once "vista/users/user/index.php"; 
                     break;
                 case 2:
                     header("location:?c=userPublicator");
