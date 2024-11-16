@@ -13,13 +13,13 @@
     <!-- Cabecera -->
     <header class="header-fijo">
     
-    <a href="?c=user">
-                <img  src="assets/img/logo.png" alt="Logo" class="logo">
-    </a>
-    <a href="?c=user" class="logo-container">
-                <img  src="https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-bleu.png" alt="Logo" class="logo">
-    </a>
-    
+        <a href="?c=user">
+                    <img  src="assets/img/logo.png" alt="Logo" class="logo">
+        </a>
+        <h1 style="text-align: center;">ESTAS COMO INVITADO</h1>
+        <a href="?c=user" class="logo-container">
+                    <img  src="https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-bleu.png" alt="Logo" class="logo">
+        </a>
     </header>
 
 <br>
@@ -79,7 +79,7 @@
 
                         <div class="attendance"> Asistirán: <?= $eq->currentAsistentes?> </div> 
 
-                        <a href="?c=user">
+                        <a href="?c=login">
                             <button  class="details-button">Más detalles</button>
 
                         </a>
@@ -108,10 +108,13 @@
               
             
             
-            <div class="card">Tarjeta 5</div>
-            <div class="card">Tarjeta 6</div>
-            <div class="card">Tarjeta 7</div>
-            <div class="card">Tarjeta 7</div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+             
              
              
             
@@ -169,13 +172,7 @@
 
 
 
-
-
-
-
-
-        
-       
+ 
 
  
  

@@ -12,31 +12,9 @@
 
 <body>
     <!-- Cabecera -->
-    <header class="header-fijo">
-    <a href="?c=userPublicator&a=mostrarFormulario">
-        <h2>Mis eventos</h2>
-    </a>
 
 
-<a href="javascript:void(0)" onclick="abrirModal()">
-    <h2>+ Crear Evento</h2>
-</a>
-
-<a class="" href="?c=logout">
-                <button  >Cerrar Sesion</button>
-            </a>
-
-
-    <a href="?c=user">
-                <img  src="assets/img/logo.png" alt="Logo" class="logo">
-    </a>
-    <a href="?c=user" class="logo-container">
-                <img  src="https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-bleu.png" alt="Logo" class="logo">
-    </a>
-    
-    </header>
-
-
+<?php include "vista/users/publicator/header.php";?>
 
 
 
@@ -121,10 +99,11 @@
               
             
             
-            <div class="card">Tarjeta 5</div>
-            <div class="card">Tarjeta 6</div>
-            <div class="card">Tarjeta 7</div>
-            <div class="card">Tarjeta 7</div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div> 
              
              
             

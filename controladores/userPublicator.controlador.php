@@ -17,6 +17,20 @@ class UserPublicatorControlador{
     }
 
     public function Inicio(){ 
+        if (isset($_SESSION['username'])) {
+            if($_SESSION['role']==2){
+                require_once "vista/users/publicator/index.php"; 
+            }else{
+                header("location:?c=inicio");
+            }
+            
+        } else {
+            header("location:?c=inicio");
+        }
+        exit(); 
+
+
+
         require_once "vista/users/publicator/index.php"; 
 
     }

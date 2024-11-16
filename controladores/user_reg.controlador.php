@@ -3,26 +3,54 @@
 
 
 require_once "modelos/Publicacion.php";
+require_once "modelos/User.php";
+
 
 class user_regControlador{
-    private $titulo = "Aceptadas";
+    // private $titulo = "Aceptadas";
     private $modelo;
     private $currentId;
-    private $filtroReporte = "Sin revision";
-    private $filtro = 2;
-    private $reportes;
+    // private $filtroReporte = "Sin revision";
+    // private $filtro = 2;
+    private $pubs;
     private $condicionRep = 1 ;
+    private $id_user;
+    private $asiste = false;
 
     public function __CONSTRUCT(){
-        $this->modelo = new Publicacion;
+        $this->modelo = new User;
     }
 
 
     
     public function Inicio(){
+        if (isset($_SESSION['username'])) {
+            if($_SESSION['role']==3){
+                $this->id_user = $_SESSION['id'];
+                // var_dump("iduserr: " . $this->id_user);
+                // exit;
+                $this->pubs = $this->modelo->viewPublications($this->id_user);
+        
+                require_once "vista/users/user/index.php"; 
+                // header("location:?c=admin");
+            }else{
+                header("location:?c=inicio");
+            }
+            
+        } else {
+            header("location:?c=inicio");
+        }
+        exit(); 
+
+
+
+        
+
+
+
         // $this->filtrarPublications($this->filtro);
-    
-        require_once "vista/users/user/index.php"; 
+
+
         // require_once "vista/users/admin/revision.php"; 
         // exit(); 
         // require_once "vista/encabezado.php";
@@ -32,36 +60,36 @@ class user_regControlador{
  
  
     public function filtrar(){
-        $this->filtro = $_GET['filtro'];
+        // $this->filtro = $_GET['filtro'];
 
-        switch($this->filtro){
-            case 1:
-            $this->titulo = "Pendientes";
-            break;
-            case 2:
-                $this->titulo = "Aceptadas";
+        // switch($this->filtro){
+        //     case 1:
+        //     $this->titulo = "Pendientes";
+        //     break;
+        //     case 2:
+        //         $this->titulo = "Aceptadas";
                 
-                break;
-                case 3:
-                    $this->titulo = "Vencidas";
+        //         break;
+        //         case 3:
+        //             $this->titulo = "Vencidas";
                     
-                    break;
-                    case 4:
-                        $this->titulo = "Rechazadas";
+        //             break;
+        //             case 4:
+        //                 $this->titulo = "Rechazadas";
                         
-                        break;
-                        case 5:
-                            $this->titulo = "Reportadas";
+        //                 break;
+        //                 case 5:
+        //                     $this->titulo = "Reportadas";
                             
-                            break;
-                            case 6:
-                                $this->titulo = "Ocultas";
+        //                     break;
+        //                     case 6:
+        //                         $this->titulo = "Ocultas";
 
-                            break;
-        }
-        $_SESSION['titulo'] = $this->titulo;
+        //                     break;
+        // }
+        // $_SESSION['titulo'] = $this->titulo;
 
-        require_once "vista/users/admin/index.php"; 
+        // require_once "vista/users/admin/index.php"; 
  
     }
  
@@ -86,12 +114,92 @@ class user_regControlador{
         }
     }
 
+
+
+
+
+
+    public function registrarAsistencia() {
+   
+        // $this->modelo->inse;
+        if (isset($_GET['id'])) {
+            $this->currentId = $_GET['id'];
+            $this->id_user = $_SESSION['id'];
+
+            // var_dump("idP: " . $this->currentId);
+            // var_dump("idU: " . $this->id_user);
+            // exit;
+
+            $this->modelo->insertarAsistencia($this->id_user, $this->currentId);
+
+            require_once "vista/users/user/verpub.php";
+
+            // Ahora puedes usar el valor de $id en tu lógica
+        } else {
+            var_dump("error al registrar asistencia C");
+            exit;
+        }
+    }
+    
+
+
+    
+    public function revisarAsistencia() { //elimina la asistencia si 
+   
+        // $this->modelo->inse;
+        if (isset($_GET['id'])) {
+            $this->currentId = $_GET['id'];
+            $this->id_user = $_SESSION['id'];
+
+            // var_dump("idP: " . $this->currentId);
+            // var_dump("idU: " . $this->id_user);
+            // exit;
+
+            $this->modelo->insertarAsistencia($this->id_user, $this->currentId);
+
+            require_once "vista/users/user/verpub.php";
+
+            // Ahora puedes usar el valor de $id en tu lógica
+        } else {
+            var_dump("error al registrar asistencia C");
+            exit;
+        }
+    }
+
+    public function retirarAsistencia() { //elimina la asistencia si 
+   
+        // $this->modelo->inse;
+        if (isset($_GET['id'])) {
+            $this->currentId = $_GET['id'];
+            $this->id_user = $_SESSION['id'];
+
+            // var_dump("idP: " . $this->currentId);
+            // var_dump("idU: " . $this->id_user);
+            // exit;
+
+            $this->modelo->insertarAsistencia($this->id_user, $this->currentId);
+
+            require_once "vista/users/user/verpub.php";
+
+            // Ahora puedes usar el valor de $id en tu lógica
+        } else {
+            var_dump("error al registrar asistencia C");
+            exit;
+        }
+    }
+
+
+
+
+
+
+
  
      
 
 
     public function insertarReporte() {//insertarReporte reporte
-    
+        $this->id_user = $_SESSION['id'];
 
        
         if (isset($_POST['publicacion_id']) && isset($_POST['razon'])) {
@@ -105,10 +213,12 @@ class user_regControlador{
             // Determinamos el ID de motivo (en este caso, asumimos que `razon` es un texto; necesitarías un mapeo a IDs)
             $idMotivo = $this->mapRazonToId($razonSeleccionada, $otraRazon);
 
+      
 
-            $this->modelo->insertarReporte($publicacionId, $idMotivo );
+            $this->modelo->insertarReporte($publicacionId, $idMotivo, $this->id_user);
 
-            $this->Inicio();
+            header("location:?c=user_reg");
+            
 
         } else {
             echo "Error: Parámetros `publicacion_id` o `razon` faltantes al insertar un reporte.";
@@ -127,7 +237,6 @@ class user_regControlador{
             "Contenido no apto para publico sensible" => 6, // Puedes usar un ID específico para "Otro" o manejarlo de otra manera
             "Otro" => 7 // Puedes usar un ID específico para "Otro" o manejarlo de otra manera
         ];
- 
   
         // Si la razón seleccionada es "Otro", usa el valor del campo 'otra-razon'
         if ($razon === "Otro" && !empty($otraRazon)) {
@@ -143,35 +252,21 @@ class user_regControlador{
 
 
 
+    public function mostrarPubsVisibles() {
+        $this->id_user = $_SESSION['username'];
+        $pubs = $this->modelo->viewPublications($this->id_user);
 
 
-
-
-
-
-
-
-    
-     
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
     
-        
+
+
+
+
+
+ 
     
 
 

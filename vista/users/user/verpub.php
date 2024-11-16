@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/unitaria.css">
-    <title>Reportadas</title>
+    <title>Ola ke hace</title>
  
 </head>
 <body>
@@ -37,19 +37,34 @@
         <h2><?= $pub->titulo?></h2>
         <h3> <?= $pub->lugar?></h3>
     </div>
-
+    
     <!-- Contenedor de Información y Botones en una fila -->
     <div class="info-buttons-containerUnitaria">
         <div class="info">Información</div>
         <div class="buttons">
-                <button onclick="cargarVista('?c=admin&filtrar&a=mostrarPub&id=')" >   + Apuntar asistencia!  </button>
+            
+            
+            <!-- verificar si es asistente o no a esta publicacion -->
+            <?php $this->asiste = $this->revisarAsistencia(); ?>
+
+            
+            <?php if($this->asiste):?>
+                <button onclick="cargarVista('?c=user_reg&a=retirarAsistencia&id=')" >   - Retirar asistencia!  </button>
+                        <!-- cuando ya es asistente-->
+            <?php else:?>
+                <button onclick="cargarVista('?c=user_reg&a=registrarAsistencia&id=')" >   + Apuntar asistencia!  </button>
+                            <!-- cuando no   es asistente-->
+                    
+            <?php endif;?>
+
                 <button onclick="cargarVista('?c=admin&filtrar&a=mostrarReportes&id=')" >Reportar</button>
         </div>
     </div>
 </div>  
 
 
-<?php require_once "vista/users/admin/detallePub.php"; ?>
+
+<?php require_once "vista/users/user/detallePub.php"; ?>
  
 
 <script>

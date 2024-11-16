@@ -11,26 +11,7 @@
 </head>
 
 <body>
-    <!-- Cabecera -->
-    <header class="header-fijo">
-    <a href="?c=userPublicator&a=mostrarFormulario">
-        <h2>Mis eventos</h2>
-    </a>
-
- 
-<a class="" href="?c=logout">
-                <button  >Cerrar Sesion</button>
-            </a>
-
-
-    <a href="?c=user">
-                <img  src="assets/img/logo.png" alt="Logo" class="logo">
-    </a>
-    <a href="?c=user" class="logo-container">
-                <img  src="https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-bleu.png" alt="Logo" class="logo">
-    </a>
-    
-    </header>
+<?php    include 'vista/users/admin/header.php'; ?>
 
 
 
@@ -42,7 +23,7 @@
         <button class="boton" data-id="Pendientes"  >Pendientes</button>
     </a>
     <a href="?c=admin&a=filtrar&filtro=6">
-        <button class="boton" data-id="Ocultas"     >Ocultas</button>
+        <button class="boton" data-id="Ocultas"  title="Publicaciones que se han ocultado automaticamente o por que se ha aceptado un reporte"  >Ocultas</button>
     </a>
     <a href="?c=admin&a=filtrar&filtro=5">
         <button class="boton" data-id="Reportadas"  >Reportadas</button>

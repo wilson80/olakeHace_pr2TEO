@@ -13,7 +13,14 @@ class RegistroControlador{
     }
 
     public function Inicio(){
-        require_once "vista/inicioS/registro.php";
+        if (isset($_SESSION['username'])) {
+                header("location:?c=inicio");
+        } else {
+            require_once "vista/inicioS/registro.php";
+        }
+        exit(); 
+
+
 
     }
  
@@ -22,8 +29,9 @@ class RegistroControlador{
     public function insertarUser(){ 
          
         $e = new User();
-        
-        $e->setIdRol(2);
+        $rol = $_POST['rol'];
+
+        $e->setIdRol($rol);
         $e->setNombre($_POST['username']);
         $e->setpasswords($_POST['password']);
         $lastInsertId = $this->user->insertUsuario($e);
@@ -35,7 +43,7 @@ class RegistroControlador{
         
  
 
-        header("location:?c=user");
+        header("location:?c=inicio");
 
         exit;
 

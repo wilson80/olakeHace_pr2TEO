@@ -1,157 +1,100 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interfaz con Tarjetas Redondeadas</title>
+ 
+    <!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-
-        
-        * {
-            box-sizing: border-box;
-        }
-
+        /* Estilos para el header */
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            background-color: #f5f5f5;
-        }
-
-        .containerTarjetaPresentacion {
-            width: 90%;
-            max-width: 1000px;
-        }
-
-        h1, h2 {
-            margin-top: 0;
-            font-weight: bold;
-        }
-
-        .buttonsPresentacion {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .buttonsPresentacion button {
+            justify-content: space-between;
             padding: 10px 20px;
+            background: linear-gradient(90deg, #001f3f, #003366, #004080);
+            color: white;
+        }
+
+        /* Logo */
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        /* Botones e iconos */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-actions button {
+            background-color: white;
+            color: #003366;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            padding: 5px 15px;
             font-size: 14px;
             cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            background-color: #6a5acd;
-            color: white;
-            transition: background-color 0.3s;
         }
 
-        .buttonsPresentacion button:hover {
-            background-color: #483d8b;
+        .header-actions button:hover {
+            background-color: #f0f0f0;
         }
 
-        .grid-containerTarjetaPresentacion {
-            display: grid;
-            grid-template-columns: 2fr 2fr; /* Aumenta el ancho de la segunda columna */
-            gap: 20px;
-        }
-
-        .card {
-            border: 1px solid #ccc;
-            border-radius: 12px;
-            padding: 20px;
+        .icon {
+            font-size: 18px;
             background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .card.large {
-            height: 300px;
-        }
-
-        .card.extra-large {
-            height: 300px;
-            width: 100%; /* Mantiene el ancho de la tarjeta al 100% del contenedor */
-        }
-
-        .card.small {
-            height: 150px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .label {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .url-box {
-            width: 100%;
+            color: #003366;
+            border-radius: 50%;
             padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-top: 10px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
         }
-        
-        .about-organizer {
-            margin-top: 20px;
+
+        .icon:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Icono de perfil */
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Estilo del ícono de usuario */
+        .profile-icon i {
+            color: #003366;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
-
-    <div class="containerTarjetaPresentacion">
-        <h1>Sub Título</h1>
-        
-        <div class="buttonsPresentacion">
-            <button>Botón A</button>
-            <button>Botón B</button>
+    <header>
+        <!-- Logo -->
+        <div class="logo">
+            <img src="assets/img/logo.png" alt="Logoaa">
         </div>
 
-        <h2>Detalles</h2>
-        
-        <div class="grid-containerTarjetaPresentacion">
-            <!-- Tarjeta grande izquierda (Detalles) -->
-            <div class="card large">
-                <p><span class="label">Categoría:</span></p>
-                <p><span class="label">Ubicación:</span></p>
-                <p><span class="label">Nombre:</span></p>
-                <p><span class="label">Público:</span> <span class="label">Categoría:</span></p>
-                <p><span class="label">Párrafo:</span></p>
-                <input type="text" placeholder="URL" class="url-box">
-            </div>
+        <!-- Botones e iconos -->
+        <div class="header-actions">
+            <button>Mis eventos</button>
+            <div class="icon"><i class="fa-solid fa-bell"></i></div> 
             
-            <!-- Tarjeta extra grande derecha -->
-            <div class="card extra-large">
-                <!-- Contenido adicional si es necesario -->
-            </div>
-
-            <!-- Tarjeta combinada para Asistentes y Límite de Asistencia -->
-            <div class="card small">
-                <p class="label">Asistentes</p>
-                <p>Label: Asistirán</p>
-                <hr style="width: 100%; border-top: 1px solid #ccc;">
-                <p class="label">Límite de Asistencia</p>
-                <p>Label</p>
-            </div>
+            <div class="profile-icon"><i class="fa-solid fa-user"></i></div>
         </div>
-
-        <h2>Sobre el Organizador</h2>
-        
-        <!-- Tarjeta sobre el organizador -->
-        <div class="card about-organizer">
-            <p><span class="label">Username:</span></p>
-            <p><span class="label">Nombres:</span></p>
-            <p><span class="label">Correo de contacto:</span></p>
-        </div>
-    </div>
-
+    </header>
 </body>
 </html>

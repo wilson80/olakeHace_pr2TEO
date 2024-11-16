@@ -22,6 +22,12 @@ class loginControlador{
     }
 
     public function Inicio(){
+
+        if (isset($_SESSION['username'])) {
+            header("location:?c=inicio");
+            exit(); 
+        } 
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -33,17 +39,22 @@ class loginControlador{
                 $_SESSION['role'] = $user['id_rol'];
                 $_SESSION['id'] = $user['id_user'];
                 // header("location:?c=user");
-                echo 'si hay userrrr';
+                                        // var_dump("Inicioooooo succes" . $_SESSION['role']);
+                                        // exit;
+                header("location:?c=inicio");
+
+
             } else {
-                echo 'Noooo  hay userrrr';
+                // echo 'Noooo  hay userrrr';
                 $_SESSION['error'] = "Usuario o contraseña incorrectos.";
-                // require_once "vista/inicioS/index.php";
+                require_once "vista/inicioS/index.php";
+                exit;
             }
-            
-            header("location:?c=user");
-            // header('Location: /olakeH/controladores/identificateUser.php');
-            exit();
+
         }
+        require_once "vista/inicioS/index.php";
+        exit();
+
          
     }
  

@@ -16,15 +16,7 @@ body {
   
 
 }
-
-.logo {
-    width: 70px;  /* Ajusta el valor del ancho */
-    height: auto;  /* Mantiene la proporción original de la imagen */
-}
-
-.logo-container {
-    float: right; /* Coloca el contenedor al extremo derecho */
-}
+ 
 
 
 
@@ -32,31 +24,14 @@ body {
 
 
 
-.header-fijo {
-    position: fixed; /* Fija el header en la parte superior */
-    top: 0;          /* Lo coloca en la parte superior de la página */
-    width: 100%;     /* Ocupa todo el ancho de la ventana */
-    background-color: #333; /* Color de fondo del header */
-    color: white;    /* Color de texto */
-    padding: 10px 0;
-    z-index: 1000;   /* Asegura que el header esté por encima del resto del contenido */
-}
-
-/* Opcional: ajusta el estilo de los enlaces */
-.header-fijo nav ul {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-    margin: 0;
-    padding: 0;
-}
-
-.header-fijo nav ul li a {
-    color: white;
-    text-decoration: none;
-}
 
 
+
+
+
+
+
+ 
 
 
 
@@ -503,10 +478,10 @@ body {
 
 
 
-
+/*barra de botones de filtros del adminnnnnnn*/
         .barra-botones {
             position: fixed;
-            top: 220px; /* Ajusta este valor según la altura de tu header */
+            top: 160px; /* Ajusta este valor según la altura de tu header */
             left: 0;
             right: 0;
             background-color: white;

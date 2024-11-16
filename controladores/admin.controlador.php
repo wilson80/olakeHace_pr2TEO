@@ -21,7 +21,25 @@ class adminControlador{
     
     public function Inicio(){
         // $this->filtrarPublications($this->filtro);
-        require_once "vista/users/admin/index.php"; 
+
+
+        if (isset($_SESSION['username'])) {
+            $rol = $_SESSION['role']; 
+            if($rol==1){
+                // header("location:?c=admin");
+                require_once "vista/users/admin/index.php"; 
+            }else{
+                // require_once "vista/users/admin/index.php"; 
+                header("location:?c=inicio");
+                exit;
+            }
+            
+        } else {
+            header("location:?c=inicio");
+            exit;
+        }
+
+        // require_once "vista/users/admin/index.php"; 
         // require_once "vista/users/admin/revision.php"; 
         // exit(); 
         // require_once "vista/encabezado.php";

@@ -10,10 +10,22 @@
     <link rel="stylesheet" href="assets/css/styles2.css">
 </head>
 <body>
+    <!-- Cabecera -->
+    <header class="header-fijo">
+    
+    <a href="?c=user">
+                <img  src="assets/img/logo.png" alt="Logo" class="logo">
+    </a>
+    <a href="?c=user" class="logo-container">
+                <img  src="https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-bleu.png" alt="Logo" class="logo">
+    </a>
+    
+    <a class="" href="?c=logout">
+                <button  >Cerrar Sesion</button>
+            </a>
 
 
-<?php    include 'header.php'; ?>
-
+    </header>
 
 <br>
 <br>

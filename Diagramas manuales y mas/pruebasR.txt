@@ -534,44 +534,12 @@ END //
 
 DELIMITER ;
 
+ 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 --  -- verificar si es necesario el BANeo  de un User Publicador 
@@ -598,3 +566,74 @@ DELIMITER ;
 --                     WHERE id_user = idUser;
 
 --                 END IF;
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ INSERT INTO estado (nombre_estado) VALUES ('Pendiente');
+ INSERT INTO estado (nombre_estado) VALUES ('Aceptada');
+ INSERT INTO estado (nombre_estado) VALUES ('Vencida');
+ INSERT INTO estado (nombre_estado) VALUES ('Rechazada');
+ INSERT INTO estado (nombre_estado) VALUES ('Reportada');
+ INSERT INTO estado (nombre_estado) VALUES ('Oculta');
+
+ INSERT INTO estadoReporte (nombre_estado) VALUES ('Sin Revision');
+ INSERT INTO estadoReporte (nombre_estado) VALUES ('Ignorado');
+ INSERT INTO estadoReporte (nombre_estado) VALUES ('Aceptado');
+ 
+
+INSERT INTO categorias (nombre_categoria) VALUES ('deporte');
+INSERT INTO categorias (nombre_categoria) VALUES ('cocina');
+INSERT INTO categorias (nombre_categoria) VALUES ('política');
+INSERT INTO categorias (nombre_categoria) VALUES ('religioso');
+INSERT INTO categorias (nombre_categoria) VALUES ('académica');
+INSERT INTO categorias (nombre_categoria) VALUES ('cultural');
+INSERT INTO categorias (nombre_categoria) VALUES ('historia');
+
+
+
+INSERT INTO motivo (descripcion_motivo) VALUES ('Contenido violento');
+INSERT INTO motivo (descripcion_motivo) VALUES ('Contenido enganoso');
+INSERT INTO motivo (descripcion_motivo) VALUES ('Ubicado en categoria incorrecta');
+INSERT INTO motivo (descripcion_motivo) VALUES ('Parece spam');
+INSERT INTO motivo (descripcion_motivo) VALUES ('incita al odio');
+INSERT INTO motivo (descripcion_motivo) VALUES ('Contenido no apto para publico sensible');
+
+
+INSERT INTO tipo (id_categoria, descripcion_publico) VALUES (1, 'adulto');
+INSERT INTO tipo (id_categoria, descripcion_publico) VALUES (1, 'infantil');
+INSERT INTO tipo (id_categoria, descripcion_publico) VALUES (1, 'familiar');
+
+INSERT INTO rol (nombre_rol) VALUES ('Amin');
+INSERT INTO rol (nombre_rol) VALUES ('publicator');
+INSERT INTO rol (nombre_rol) VALUES ('user');
+
+
+
+INSERT INTO usuario (id_rol, user, password) VALUES (1, 'admin', 'admin');
+INSERT INTO usuario (id_rol, user, password) VALUES (2, 'publicator', 'publicator');
+INSERT INTO usuario (id_rol, user, password) VALUES (3, 'user', 'user');
+INSERT INTO usuario (id_rol, user, password) VALUES (2, 'pub', 'pub');
+INSERT INTO usuario (id_rol, user, password) VALUES (2, 'pub3', 'pub3');
+
+
+
+
+
+
+
+
+

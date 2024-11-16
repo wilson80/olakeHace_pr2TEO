@@ -73,24 +73,171 @@ class User{
         }
     }
  
-
  
+    
+    
+    public function insertarAsistencia($idUser, $idPub){     
+            try{
+                $sql = " CALL insertarAsistencia(:idUser, :idPub);
+                ";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->bindParam(':idUser', $idUser);
+                $stmt->bindParam(':idPub', $idPub);
+                
+                // Ejecutar la consulta
+                $stmt->execute();
+        
+                // header("location:?c=user");
+        
+                // echo "Evento insertado correctamente!";
+            }catch(PDOException $e){
+                echo "Error al insertar publicacion: " . $e->getMessage();
+                exit;
+                // header("location:?c=user");
+            }
+        
+        
 
-     public function nombrar(){        //partidas de todo el equipo
+        
+    }   
+
+
+    public function verificarAsistencia($idUser, $idPub){     
         try{
-         $consulta = $this->pdo->prepare("
-         SELECT nombre as yo FROM id_jugador where nombre='wilson';  ");
-            $consulta->execute();
-            return $consulta->fetch(PDO::FETCH_OBJ);
-        }catch(Exception $e){
-            die($e->getMessage());
+            $sql = " CALL insertarAsistencia(:idUser, :idPub);
+            ";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':idUser', $idUser);
+            $stmt->bindParam(':idPub', $idPub);
+            
+            // Ejecutar la consulta
+            $stmt->execute();
+    
+            // header("location:?c=user");
+    
+            // echo "Evento insertado correctamente!";
+        }catch(PDOException $e){
+            echo "Error al insertar publicacion: " . $e->getMessage();
+            exit;
+            // header("location:?c=user");
         }
-     }
+}   
+    
+    
 
 
-     
-     
+
+
+
+    
+public function viewPublications($id_user){        //Listar publicaciones aceptadas
+    //muestra las publicaciones visibles 
+    try{
+
+        $stmt = $this->pdo->prepare("SELECT * FROM vista_publicacion_completa v
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM reporte r
+            WHERE r.id_publicacion = v.id_publicacion
+            AND r.id_reportador = :id_user
+        )");
+
+        $stmt->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+
+    }catch(Exception $e){
+        die($e->getMessage());
+    }
+ }  
+
  
+
+ public function viewUnaPublicacion($id){        //Listar publicaciones aceptadas
+    // WHERE estado.nombre_estado = 'Aceptada';
+    // $id = "Aceptada";
+    try{
+        
+        $consulta = $this->pdo->prepare("
+        CALL vista_una_publicacion(:fil);
+         ");
+        $consulta->bindParam(':fil', $id);
+        
+        $consulta->execute(); 
+        return $consulta->fetch(PDO::FETCH_OBJ);
+
+
+    }catch(PDOException $e){
+        die($e->getMessage());
+    }
+ }
+
+
+
+ 
+ public function insertarReporte($publicacionId, $idMotivo, $idReportador){
+
+    try{
+        $sql = "INSERT INTO reporte (id_publicacion, id_motivo, id_reportador, fecha_report) 
+                VALUES (:publicacionId, :idMotivo, :idReportador, NOW())";
+            
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':publicacionId', $publicacionId);
+        $stmt->bindParam(':idMotivo', $idMotivo);
+        $stmt->bindParam(':idReportador', $idReportador);
+         
+
+
+        // Ejecutar la consulta
+        $stmt->execute();
+ 
+        // echo "Evento insertado correctamente!";
+    }catch(PDOException $e){
+        echo "Error al insertar reporte: " . $e->getMessage();
+        exit;
+        // header("location:?c=user");
+    }
+}
+
+
+ 
+ 
+
+public function insertarMotivo($motivo){
+
+    try{
+        $sql = "CALL insertar_motivo(:motivo, @id_generado);
+            ";
+            
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':motivo', $motivo);
+         
+        // Ejecutar la consulta
+        $stmt->execute();
+    // Recuperar el id generado
+         $result = $this->pdo->query("SELECT @id_generado AS id_motivo")->fetch(PDO::FETCH_ASSOC);
+         
+         return $result['id_motivo'];
+
+        // echo "Evento insertado correctamente!";
+    }catch(PDOException $e){
+        echo "Error al insertar Motivo: " . $e->getMessage();
+        exit;
+        // header("location:?c=user");
+    }
+
+
+    
+ 
+}
+
+    
+
+
+
+
+
 
 
     
