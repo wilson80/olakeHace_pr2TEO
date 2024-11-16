@@ -112,12 +112,15 @@ header {
     </div>
     <div class="header-right">
         <!-- Botón antes de los íconos -->
-        <a href="?c=user_reg">
+        <a href="?c=user_reg&vista=home">
             <button class="header-button">Home</button>
 
         </a>
+        <a href="?c=user_reg&vista=mis_eventos">
+            <button class="header-button" title="Los eventos a los que te haz apuntado">Mis eventos</button>
 
-        <button class="header-button" title="Los eventos a los que te haz apuntado">Mis eventos</button>
+        </a>
+
         <div><i class="fa-solid fa-bell"></i></div>
         <div><i class="fa-solid fa-user"></i></div> <!-- Este es el último ícono -->
     </div>

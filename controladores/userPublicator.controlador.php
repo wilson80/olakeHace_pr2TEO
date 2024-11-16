@@ -84,6 +84,17 @@ class UserPublicatorControlador{
     
     
     
+
+
+
+
+
+
+    
+
+
+
+
     
     
     

@@ -6,7 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/unitaria.css">
     <title>Reportadas</title>
  
 </head>
@@ -22,6 +21,7 @@
             <!-- Tarjeta grande izquierda (Detalles) -->
             <div class="card large">
                 <p><span class="label"><?= $pub->titulo ?></span></p>
+                <?php $this->fechaProx = $pub->fecha_hora ?>
                 <p><span class="label">A realizarse: <?= $pub->fecha_hora ?></span></p>
                 <p><span ><?= $pub->descripcion ?> </span></p>
                 <p><span class="label">Ubicación: <?= $pub->lugar ?> </span></p>
@@ -82,9 +82,12 @@
 
 
 <script> 
+
+
+
         // Configura la fecha del evento aquí (formato: "Año-Mes-Día Hora:Minuto:Segundo")
         // const eventDate = new Date("2024-12-25 00:00:00").getTime();
-        const eventDate = new Date(<?php echo json_encode($pub->fecha_hora); ?>).getTime();
+        const eventDate = new Date(<?php echo json_encode($this->fechaProx); ?>).getTime();
 
         // Actualiza el contador cada segundo
         const countdownInterval = setInterval(() => {
@@ -104,7 +107,15 @@
                 document.getElementById("countdown").innerHTML = "El evento ha comenzado";
             }
         }, 1000);
- 
+
+
+
+
+
+
+
+
+
 </script>
 
 

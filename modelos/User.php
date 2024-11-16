@@ -103,26 +103,45 @@ class User{
 
 
     public function verificarAsistencia($idUser, $idPub){     
-        try{
-            $sql = " CALL insertarAsistencia(:idUser, :idPub);
-            ";
+        try {
+            $sql = "SELECT EXISTS (
+                        SELECT 1
+                        FROM asistencia
+                        WHERE id_usuario = :id_usuario AND id_publicacion = :id_publicacion
+                    ) AS es_asistente";
+        
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':idUser', $idUser);
-            $stmt->bindParam(':idPub', $idPub);
-            
-            // Ejecutar la consulta
+            $stmt->bindParam(':id_usuario', $idUser, PDO::PARAM_INT);
+            $stmt->bindParam(':id_publicacion', $idPub, PDO::PARAM_INT);
+        
             $stmt->execute();
-    
-            // header("location:?c=user");
-    
-            // echo "Evento insertado correctamente!";
-        }catch(PDOException $e){
-            echo "Error al insertar publicacion: " . $e->getMessage();
-            exit;
-            // header("location:?c=user");
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+            return (bool)$resultado['es_asistente']; // Retorna true o false
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
         }
-}   
+    }   
+
+    public function retirarAsistencia($idUser, $idPub){     
+        try {
+            $sql = "CALL retirar_asistencia(:id_user, :id_publicacion)";
     
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':id_user', $idUser, PDO::PARAM_INT);
+            $stmt->bindParam(':id_publicacion', $idPub, PDO::PARAM_INT);
+    
+            $stmt->execute();
+            // return true; // Éxito
+        } catch (PDOException $e) {
+            echo "Error al retirar asistencia: " . $e->getMessage();
+            return false;
+        }
+    }   
+    
+
+
     
 
 
@@ -131,7 +150,8 @@ class User{
 
     
 public function viewPublications($id_user){        //Listar publicaciones aceptadas
-    //muestra las publicaciones visibles 
+                                                //muestra las publicaciones visibles 
+                                                //No muestra las publicaciones que este usuario ha reportado 
     try{
 
         $stmt = $this->pdo->prepare("SELECT * FROM vista_publicacion_completa v
@@ -152,8 +172,14 @@ public function viewPublications($id_user){        //Listar publicaciones acepta
     }
  }  
 
- 
 
+
+
+
+
+
+
+ 
  public function viewUnaPublicacion($id){        //Listar publicaciones aceptadas
     // WHERE estado.nombre_estado = 'Aceptada';
     // $id = "Aceptada";
@@ -199,9 +225,6 @@ public function viewPublications($id_user){        //Listar publicaciones acepta
         // header("location:?c=user");
     }
 }
-
-
- 
  
 
 public function insertarMotivo($motivo){
@@ -232,6 +255,97 @@ public function insertarMotivo($motivo){
  
 }
 
+
+
+
+
+public function obtenerEventosAsistente($idUser) {
+ 
+    try {
+        $sql = "SELECT 
+                    p.id_publicacion,
+                    p.titulo,
+                    p.lugar,
+                    p.fecha_hora,
+                    p.descripcion,
+                    p.cantidad_asistentes,
+                    c.nombre_categoria AS categoria,
+                    t.descripcion_publico AS tipo_publico,
+                    e.nombre_estado AS estado
+                FROM
+                    asistencia a
+                JOIN 
+                    publicacion p ON a.id_publicacion = p.id_publicacion
+                JOIN 
+                    categorias c ON p.id_cat = c.id_categoria
+                JOIN 
+                    tipo t ON p.id_tipo = t.id_tipo
+                JOIN 
+                    estado e ON p.id_estado = e.id_estado
+                WHERE 
+                    a.id_usuario = :id_user
+                ORDER BY 
+                    ABS(TIMESTAMPDIFF(SECOND, NOW(), p.fecha_hora)) ASC;
+                ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id_user', $idUser, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        // return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve un array de eventos
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        
+    } catch (PDOException $e) {
+        echo "Error al obtener eventos: " . $e->getMessage();
+        return [];
+    }
+}
+
+
+
+public function eventoMasProximo($idUser) {
+ 
+    try {
+        $sql = "SELECT 
+                    p.id_publicacion,
+                    p.titulo,
+                    p.lugar,
+                    p.fecha_hora,
+                    p.descripcion,
+                    p.cantidad_asistentes,
+                    c.nombre_categoria AS categoria,
+                    t.descripcion_publico AS tipo_publico,
+                    e.nombre_estado AS estado
+                FROM
+                    asistencia a
+                JOIN 
+                    publicacion p ON a.id_publicacion = p.id_publicacion
+                JOIN 
+                    categorias c ON p.id_cat = c.id_categoria
+                JOIN 
+                    tipo t ON p.id_tipo = t.id_tipo
+                JOIN 
+                    estado e ON p.id_estado = e.id_estado
+                WHERE 
+                    a.id_usuario = :id_user
+                ORDER BY 
+                    ABS(TIMESTAMPDIFF(SECOND, NOW(), p.fecha_hora)) ASC;
+                ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id_user', $idUser, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        // return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve un array de eventos
+        return $stmt->fetch(PDO::FETCH_OBJ);
+
+        
+    } catch (PDOException $e) {
+        echo "Error al obtener eventos: " . $e->getMessage();
+        return [];
+    }
+}
     
 
 

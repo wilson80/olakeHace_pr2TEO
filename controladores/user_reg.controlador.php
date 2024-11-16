@@ -16,6 +16,8 @@ class user_regControlador{
     private $condicionRep = 1 ;
     private $id_user;
     private $asiste = false;
+    private $vista = "home";    //mis_eventos
+    private $fechaProx;   
 
     public function __CONSTRUCT(){
         $this->modelo = new User;
@@ -29,6 +31,12 @@ class user_regControlador{
                 $this->id_user = $_SESSION['id'];
                 // var_dump("iduserr: " . $this->id_user);
                 // exit;
+                
+                if (isset($_GET['vista'])) {
+                    $this->vista = $_GET['vista'];
+                }
+
+
                 $this->pubs = $this->modelo->viewPublications($this->id_user);
         
                 require_once "vista/users/user/index.php"; 
@@ -132,6 +140,9 @@ class user_regControlador{
 
             $this->modelo->insertarAsistencia($this->id_user, $this->currentId);
 
+            // mensaje_asistencia
+            $_SESSION['mensaje_asistencia'] = "Asistencia apuntada correctamente.";
+
             require_once "vista/users/user/verpub.php";
 
             // Ahora puedes usar el valor de $id en tu lógica
@@ -155,9 +166,13 @@ class user_regControlador{
             // var_dump("idU: " . $this->id_user);
             // exit;
 
-            $this->modelo->insertarAsistencia($this->id_user, $this->currentId);
+            if($this->modelo->verificarAsistencia($this->id_user, $this->currentId)){
+                return true;
+            }else{
+                return false;
+            }            
 
-            require_once "vista/users/user/verpub.php";
+            // require_once "vista/users/user/verpub.php";
 
             // Ahora puedes usar el valor de $id en tu lógica
         } else {
@@ -177,7 +192,11 @@ class user_regControlador{
             // var_dump("idU: " . $this->id_user);
             // exit;
 
-            $this->modelo->insertarAsistencia($this->id_user, $this->currentId);
+            $this->modelo->retirarAsistencia($this->id_user, $this->currentId);
+
+
+            // mensaje_asistencia
+            $_SESSION['mensaje_asistencia'] = "Asistencia Retirada correctamente.";
 
             require_once "vista/users/user/verpub.php";
 

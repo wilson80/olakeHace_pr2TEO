@@ -8,11 +8,56 @@
     <link rel="stylesheet" href="assets/css/unitaria.css">
     <title>Ola ke hace</title>
  
+    <style>
+        .mensaje-asistencia {
+            background-color: #d1e7dd; /* Color de fondo verde claro */
+            color: #0f5132; /* Color del texto verde oscuro */
+            border: 1px solid #badbcc; /* Borde verde claro */
+            border-radius: 8px; /* Bordes redondeados */
+            padding: 10px 15px; /* Espaciado interno */
+            margin: 10px 0; /* Espaciado externo */
+            font-size: 16px; /* Tamaño del texto */
+            font-weight: bold; /* Negrita */
+            text-align: center; /* Centrar el texto */
+            width: 100%; /* Ocupa todo el ancho del contenedor */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            animation: fadeIn 0.5s ease; /* Animación de entrada */
+        }
+
+        /* Animación para que el mensaje aparezca suavemente */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+
+
+    </style>
 </head>
 <body>
 
+<?php    include 'header.php'; ?>
 
 <div class="containerUnitaria">
+
+
+    <!-- Mostrar mensaje de asistencia apuntada o retirada -->
+    <?php if (isset($_SESSION['mensaje_asistencia'])): ?>
+        <div class="mensaje-asistencia">
+            <p><?= htmlspecialchars($_SESSION['mensaje_asistencia']) ?></p>
+        </div>
+        <?php unset($_SESSION['mensaje_asistencia']); // Eliminar el mensaje después de mostrarlo ?>
+    <?php endif; ?>
+
+
+
     <!-- Contenedor de imágenes -->
     <div class="image-containerUnitaria">
         <div class="image-blurred"> 

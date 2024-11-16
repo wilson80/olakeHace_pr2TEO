@@ -17,93 +17,46 @@
 
 <br>
 <br>
-    <!-- Evento mas proximo -->
-    <div class="event-container">
-        <div class="event-info">
-            <h3>Próximo evento</h3>
-            <p>Marcha</p>
-            <p>Ubicación:</p>
-        </div>
-        <div class="event-date">
-            Fecha
-        </div>
-        <div class="event-timer">
-            <h3>Tiempo restante</h3>
-            <div id="countdown">00 Días 00 Horas</div>
-        </div>
-    </div>
 
  
-<br>
-<br>
-    <h1>Te podria interesar</h1>
-    <!-- Contenedor de tarjetas con botones de navegación -->
-    <div class="card-scroll-container">
-        <button class="nav-button left" onclick="moveLeft()">&#10094;</button>
-        <div class="card-scroll">
+            <?php $masProx = $this->modelo->eventoMasProximo($_SESSION['id']); ?>
+            <?php if (isset(  $masProx  )): ?>
+                <?php $this->fechaProx = $masProx->fecha_hora ;?>
+                            <!-- Evento mas proximo -->
+                <div class="event-container">
+                    <div class="event-info">
+                        <h3>Próximo evento</h3>
+                        <p>Marcha</p>
+                        <p>Ubicación:</p>
+                    </div>
+                    <div class="event-date">
+                        Fecha
+                    </div>
+                    <div class="event-timer">
+                        <h3>Tiempo restante</h3>
+                        <div id="countdown">00 Días 00 Horas</div>
+                    </div>
+                </div>              
+            
+                            
+                                        
+            <?php endif; ?>
 
 
-            <?php foreach($this->pubs as $eq):?>         <!--ciclo for -->
-                <div class="card">
-                <div class="container">
-                    <div class="header">
-                        <div class="date"><?=$eq->fecha_hora?></div>
-                        <button class="report-button" data-id="<?=$eq->id_publicacion?>" data-tittle="<?=$eq->titulo?>"  title="Reportar">
-                            &#9888;
-                        </button>
-                    </div>
-                    <div class="image">
-                        <img src="https://i.pinimg.com/736x/c9/49/e2/c949e213eddf6aec9af7a1fc31f0848b.jpg" alt="Imagen del evento">
-                    </div>
-                    <div class="content">
-                        <h2><?=$eq->titulo?></h3>
-                        <p>Lugar: <?=$eq->lugar?></p>
-                        <p> <?=$eq->descripcion?></p>
-                        <h3>invita: <?=$eq->username?></h3>
-                    </div>
-                    <div class="footerTarjeta">
-                        
-                    <?php if ($eq->cantidad_asistentes!=0): ?>
-                        <div class="attendance">Límite de asistentes: <?= $eq->cantidad_asistentes ?> </div>
+
+ 
+ 
+                    <?php if ($this->vista=="home"): ?>
+                            <?php    include 'bodyPubs.php'; ?>
+                            
                     <?php else: ?>
-                            <div class="attendance">Sin limite de asistentes </div>
+                                <?php    include 'miseventos.php'; ?>
+                            
                     <?php endif; ?>
 
-
-                        <div class="attendance"> Asistirán: <?= $eq->currentAsistentes?> </div> 
- 
-                         <button class="details-button" onclick="cargarVista('?c=user_reg&a=mostrarPub&id=<?= $eq->id_publicacion?>')" >Más detalles</button>
-
-                    </div>
-                </div>
-                                
-                     
-                </div>
                     
-                      
 
-        
-              <?php endforeach;?> 
-  
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-              
-        </div>
-        <button class="nav-button right" onclick="moveRight()">&#10095;</button>
-    </div> 
-
-
-
-<br> 
-<br> 
-  
-
-
+                    
 
 <!-- Ventana modal para la denuncia -->
 <div id="modale" class="modale">
@@ -137,24 +90,54 @@
 <!-- Mensaje de éxito -->
 <div id="mensaje-exito" class="mensaje-exito">Denuncia enviada</div>
 
+   
+ 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <script>
+
+
+        // Configura la fecha del evento aquí (formato: "Año-Mes-Día Hora:Minuto:Segundo")
+        // const eventDate = new Date("2024-12-25 00:00:00").getTime();
+        const eventDate = new Date(<?php echo json_encode($this->fechaProx); ?>).getTime();
+
+        // Actualiza el contador cada segundo
+        const countdownInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const timeLeft = eventDate - now;
+
+            // Calcula días, horas, minutos y segundos restantes
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+            // Muestra el resultado en el contenedor con id="countdown"
+            document.getElementById("countdown").innerHTML = `${days} Días ${hours} Horas`;
+
+            // Si la cuenta regresiva ha terminado
+            if (timeLeft < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "El evento ha comenzado";
+            }
+        }, 1000);
+ 
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
 
 
  // Mostrar la ventana modal al hacer clic en el botón "reportar"

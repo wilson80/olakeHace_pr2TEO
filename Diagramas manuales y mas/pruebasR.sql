@@ -306,6 +306,31 @@ DELIMITER ;
 
 
 
+DELIMITER //
+-- retira una asistenciaaaaaa
+CREATE PROCEDURE retirar_asistencia(
+    IN v_id_user INT,
+    IN v_id_publicacion INT
+)
+BEGIN
+    -- Verificar si la asistencia existe antes de intentar eliminarla
+    IF EXISTS (
+        SELECT 1
+        FROM asistencia
+        WHERE id_usuario = v_id_user AND id_publicacion = v_id_publicacion
+    ) THEN
+        -- Elimina la asistencia
+        DELETE FROM asistencia
+        WHERE id_usuario = v_id_user AND id_publicacion = v_id_publicacion;
+
+        -- Restar 1 a la cantidad de asistentes de la publicación
+        UPDATE publicacion
+        SET currentAsistentes = GREATEST(currentAsistentes - 1, 0)
+        WHERE id_publicacion = v_id_publicacion; 
+    END IF;
+END //
+
+DELIMITER ;
 
 
 
@@ -539,6 +564,8 @@ DELIMITER ;
 
 
 
+
+
  
 
 
@@ -571,15 +598,7 @@ DELIMITER ;
 
 
 
-
-
-
-
-
  
-
-
-
 
 
 
@@ -632,6 +651,30 @@ INSERT INTO usuario (id_rol, user, password) VALUES (2, 'pub3', 'pub3');
 
 
 
+
+
+
+
+
+
+-- puedes darme varios inserts los tipos pueden ser de 1-3, las fechas que no hallan pasado, categorias de 1-7, descripcion y titulo sobre cualquier actividad social 
+
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
+VALUES (2, 2, 1, 'Centro de Convenciones', '2024-11-15 10:00:00', 'Evento de tecnología', 200, 'Titulo', 1);
+
+
+INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
+VALUES 
+(2, 1, 2, 'Parque Central', '2024-11-20 15:00:00', 'Reunión comunitaria para limpieza del parque', 50, 'Limpieza del parque', 3),
+(2, 3, 1, 'Auditorio Municipal', '2024-12-05 18:30:00', 'Charla sobre sostenibilidad ambiental', 120, 'Sostenibilidad Ambiental', 2),
+(2, 2, 3, 'Biblioteca Nacional', '2024-11-25 11:00:00', 'Sesión de lectura infantil', 30, 'Cuentos para niños', 7),
+(2, 1, 1, 'Centro Cultural', '2024-12-10 16:00:00', 'Taller de pintura para principiantes', 25, 'Arte para todos', 4),
+(2, 3, 2, 'Estadio Municipal', '2024-11-30 19:00:00', 'Partido de fútbol comunitario', 500, 'Fútbol bajo las estrellas', 6),
+(2, 2, 3, 'Sala de Conferencias', '2024-12-15 09:00:00', 'Seminario de emprendimiento', 80, 'Impulsa tu negocio', 5),
+(2, 1, 2, 'Teatro Principal', '2024-12-20 20:00:00', 'Obra de teatro solidaria', 150, 'Teatro para todos', 7),
+(2, 3, 1, 'Cafetería La Esquina', '2024-11-18 14:00:00', 'Reunión para planeación de eventos sociales', 10, 'Planeación Social', 1),
+(2, 2, 3, 'Centro de Salud Local', '2024-12-01 08:00:00', 'Campaña de donación de sangre', 100, 'Donemos vida', 3),
+(2, 1, 2, 'Plaza Mayor', '2024-11-22 10:00:00', 'Feria de alimentos saludables', 200, 'Sabores saludables', 2);
 
 
 
