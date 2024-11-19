@@ -112,7 +112,7 @@ header {
     </div>
     <div>
 
-        <p style="color: #c2dfff;">username: <?= $_SESSION['username'];?> </p></div>
+        <p style="color: #c2dfff;">USUARIO COMUN:  <?= $_SESSION['username'];?> </p></div>
 
     <div class="header-right">
         <!-- Botón antes de los íconos -->

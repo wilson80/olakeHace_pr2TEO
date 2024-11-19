@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/unitaria.css">
+
     <title>Ola ke hace</title>
  
     <style>
@@ -36,6 +37,55 @@
             }
         }
 
+      
+
+        .modale {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo difuminado */
+    backdrop-filter: blur(5px); /* Difumina el fondo */
+    justify-content: center;
+    align-items: center;
+    }
+    
+    .modale-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    ul {
+    list-style: none;
+    padding: 0;
+    }
+    
+    ul li {
+    margin-bottom: 10px;
+    }
+    
+    .mensaje-exito {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    z-index: 2;
+    }
+    
+    .mensaje-exito.active {
+    display: block;
+    }
 
 
 
@@ -44,6 +94,8 @@
 <body>
 
 <?php    include 'header.php'; ?>
+
+<?php include "form_report.php"; ?>  
 
 <div class="containerUnitaria">
 
@@ -61,15 +113,23 @@
     <!-- Contenedor de imágenes -->
     <div class="image-containerUnitaria">
         <div class="image-blurred"> 
-            <img src="https://i0.wp.com/juezdeatletismo.com/wp-content/uploads/2023/12/23-Marcha-equipo-Paris.jpg?fit=600%2C400&ssl=1" alt="">
+
+        <?php $pub = $this->modelo->viewUnaPublicacion($this->currentId); ?>
+
+        <img src="<?= $pub->imgdir?>" alt="Imagen del evento">
+            
         </div>
         <div class="image-main">
-            <img src="https://i0.wp.com/juezdeatletismo.com/wp-content/uploads/2023/12/23-Marcha-equipo-Paris.jpg?fit=600%2C400&ssl=1" alt="">
-            
+
+        <img src="<?= $pub->imgdir?>" alt="Imagen del evento">
+
+           
         </div>
         <div class="image-blurred">
-            <img src="https://i0.wp.com/juezdeatletismo.com/wp-content/uploads/2023/12/23-Marcha-equipo-Paris.jpg?fit=600%2C400&ssl=1" alt="">
-            
+        <img src="<?= $pub->imgdir?>" alt="Imagen del evento">
+
+
+             
         </div>
     </div>
  
@@ -102,7 +162,7 @@
                     
             <?php endif;?>
 
-                <button onclick="cargarVista('?c=admin&filtrar&a=mostrarReportes&id=')" >Reportar</button>
+                <button class="report-button" data-id="<?=$pub->id_publicacion?>" data-tittle="<?=$pub->titulo?>"  >Reportar</button>
         </div>
     </div>
 </div>  
@@ -111,8 +171,12 @@
 
 <?php require_once "vista/users/user/detallePub.php"; ?>
  
+<script src="assets/js/form_report.js" ></script>
+
+
 
 <script>
+
     function cargarVista(url) {
         const id = <?php echo json_encode($this->currentId); ?>;
 

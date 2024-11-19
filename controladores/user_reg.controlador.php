@@ -48,8 +48,7 @@ class user_regControlador{
 
                 if (isset($_SESSION['fcategoria'])) {
                     $this->filtroCategoria = $_SESSION['fcategoria'];
-                     unset($_SESSION['fcategoria']); // no mostrar nuevamente 
-
+                    //  unset($_SESSION['fcategoria']); // no mostrar nuevamente 
                 }
 
                 
@@ -271,6 +270,34 @@ class user_regControlador{
         }
     }
 
+    public function insertarReporteUser() {//insertarReporte reporte
+        
+        $this->id_user = $_SESSION['id'];
+        
+   
+       
+        if (isset($_POST['publicacionu_id']) && isset($_POST['razonu'])) {
+            // Obtenemos los valores
+            $id_publicador = $_POST['publicacionu_id'];
+            $razonSeleccionada = $_POST['razonu'];
+            
+            // Si la razón seleccionada es "Otro", obtenemos el valor del campo correspondiente
+            $otraRazon = isset($_POST['otra-razonu']) ? $_POST['otra-razonu'] : null;
+ 
+            //   el ID de motivo (en este caso, asumimos que `razon` es un texto; necesitarías un mapeo a IDs)
+            $idMotivo = $this->mapRazonToId($razonSeleccionada, $otraRazon);
+
+
+            $this->modelo->insertarReporte_user($id_publicador, $idMotivo, $this->id_user);
+
+            header("location:?c=user_reg");
+            
+
+        } else {
+            echo "Error: Parámetros `publicacion_id` o `razon` faltantes al insertar un reporte.";
+        }
+    }
+    
 
     private function mapRazonToId($razon, $otraRazon) {
         // Mapeo de razones a IDs; aquí puedes agregar más razones según tu base de datos

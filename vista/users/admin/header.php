@@ -11,6 +11,8 @@ session_start();
     <title>Página Principal</title>
     <!-- Font Awesome CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
         /* Estilos generales de la página */
         /* Estilos generales de la página */
@@ -97,6 +99,93 @@ header {
     }
 }
 
+
+
+
+
+
+
+/* Contenedor del menú desplegable */
+.dropdown {
+        position: relative;
+    }
+
+    /* Botón del menú desplegable */
+    .dropdown-btn {
+        background-color: #ffffff;
+        color: #003a7c;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: background-color 0.2s ease;
+    }
+
+    .dropdown-btn:hover {
+        background-color: #f0f0f0;
+    }
+
+    /* Lista desplegable */
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 45px;
+        right: 0;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .dropdown-menu li {
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .dropdown-menu li:hover {
+        background-color: #f0f0f0;
+    }
+
+    /* Mostrar el menú al hacer clic */
+    .dropdown.show .dropdown-menu {
+        display: block;
+    }
+
+
+    .tipo-publico {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#tipoPublicoSelect {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
 
 <header>
@@ -110,13 +199,127 @@ header {
             <button class="header-button">Cerrar Sesion</button>
         </a>
     </div>
+
+    <p style="color: #c2dfff;">USUARIO ADMINISTRADOR  :   <?= $_SESSION['username']?></p></div>
+
+
+
+   <div class="tipo-publico">
+                <select id="tipoPublicoSelect">
+                    <option value="publicaciones" <?php  echo ($this->menu === 'publicaciones') ? 'selected' : ''; ?>>Control Publicaciones</option>
+                    <option value="usuarios" <?php  echo ($this->menu === 'usuarios') ? 'selected' : ''; ?> >Control usuarios</option>
+                    <option value="reportes"  <?php  echo ($this->menu === 'reportes') ? 'selected' : ''; ?> >Reportes</option>
+                </select>
+            </div> <!-- Botón antes de los íconos -->
+
     <div class="header-right">
-        <!-- Botón antes de los íconos -->
-        <button class="header-button">Mis eventos</button>
+        
+        <a href="?c=admin&menu=publicaciones">
+
+            <button  class="header-button">Home</button>
+        </a>
+
         <div><i class="fa-solid fa-bell"></i></div>
         <div><i class="fa-solid fa-user"></i></div> <!-- Este es el último ícono -->
     </div>
 </header>
+
+
+
+ 
+<style>
+    /* Contenedor del menú desplegable */
+    .dropdown {
+        position: relative;
+        left: 550px;
+    }
+
+    /* Botón del menú desplegable */
+
+ 
+.dropdown-btn {
+    background-color: #ffffff;
+    color: #003a7c;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.2s ease;
+    margin-right: 10px; /* Ajusta este valor según lo que necesites */
+}
+
+    .dropdown-btn:hover {
+        background-color: #f0f0f0;
+    }
+
+    /* Lista desplegable */
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 45px;
+        right: 0;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .dropdown-menu li {
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .dropdown-menu li:hover {
+        background-color: #f0f0f0;
+    }
+
+    /* Mostrar el menú al hacer clic */
+    .dropdown.show .dropdown-menu {
+        display: block;
+    }
+</style>
+
+
+
+<script>
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tipoPublicoSelect = document.getElementById('tipoPublicoSelect');
+
+    tipoPublicoSelect.addEventListener('change', () => {
+        // alert('Tipo público seleccionado:' + tipoPublicoSelect.value);
+        const controlador = "?c=admin&menu=";
+        const url = controlador + tipoPublicoSelect.value;
+        window.location.href = url;  // Redirige a la nueva URL
+
+        
+    });
+
+ 
+});
+
+ 
+  
+
+
+
+</script>
+
+
+
+
+
+
 
 
 

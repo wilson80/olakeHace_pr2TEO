@@ -12,6 +12,11 @@ class adminControlador{
     private $filtro = 2;
     private $reportes;
     private $condicionRep = 1 ;
+   
+    private $menu = "publicaciones" ;
+    private $reportesUsers;
+
+
 
     public function __CONSTRUCT(){
         $this->modelo = new Publicacion;
@@ -26,6 +31,18 @@ class adminControlador{
             $rol = $_SESSION['role']; 
             if($rol==1){
                 // header("location:?c=admin");
+
+                if(isset($_SESSION['menu'])){
+                     $this->menu = $_SESSION['menu'] ; 
+                }
+                if(isset($_GET['menu'])){
+                     $_SESSION['menu'] = $_GET['menu'];   
+                     $this->menu = $_SESSION['menu'] ; 
+                }
+                
+
+                
+
                 require_once "vista/users/admin/index.php"; 
             }else{
                 // require_once "vista/users/admin/index.php"; 
@@ -97,7 +114,7 @@ class adminControlador{
                         require_once "vista/users/admin/pendientes.php";
                     break;
                     case "Aceptadas": 
-                        require_once "vista/users/admin/revision.php";
+                        require_once "vista/users/admin/pendientes.php";
                     break;
             } 
 
@@ -115,58 +132,86 @@ class adminControlador{
 
     public function mostrarReportes() {
 
+        
+    if (isset($_GET['id'])) {
+        $this->currentId = $_GET['id'];
 
-        if (isset($_GET['id'])) {
-            $this->currentId = $_GET['id'];
-
-        } else {
-            var_dump("No se recibio el id");
-            exit;
-        }
-
-        $this->reportes = $this->modelo->getReportesByid($this->currentId);
-        require_once "vista/users/admin/reportadas_reportes.php";
+    } else {
+        var_dump("No se recibio el id");
+        exit;
     }
+
+    $this->reportes = $this->modelo->getReportesByid($this->currentId);
+    require_once "vista/users/admin/reportadas_reportes.php";
+
+        
+    }
+
+    
     
 
     public function mostrarFiltrarReportes() {
-        
-        $this->currentId = $_GET['id'];
-        $filtro = $_GET['tipor'];
-        $this->condicionRep = $_GET['tipor'];
-        switch($filtro){
-            case 1:
-                $this->filtroReporte = "Sin Revision";
-                break;
-                case 2:
-                    $this->filtroReporte = "Ignorado";
-                    break;
-                    case 3:
-                        $this->filtroReporte = "Aceptado";
-                        break;
-                    }
-                    
-        // var_dump("aquiii>>: " . $this->filtroReporte);
-        //         exit;
-        $this->reportes = $this->modelo->getReportesByid($this->currentId);
-                    
-
+        $this->menu = $_SESSION['menu'];
+         
+        if($this->menu == "usuarios"){
+            $this->condicionRep = $_GET['tipor'];
+            $this->reportesUsers = $this->modelo->getAllsReportes();
+            require_once "vista/users/admin/index.php";
             
-     
-        
+        }else if($this->menu=="publicaciones"){
+          $this->currentId = $_GET['id'];
+            $filtro = $_GET['tipor'];
+            $this->condicionRep = $_GET['tipor'];
+            switch($filtro){
+                case 1:
+                    $this->filtroReporte = "Sin Revision";
+                    break;
+                    case 2:
+                        $this->filtroReporte = "Ignorado";
+                        break;
+                        case 3:
+                            $this->filtroReporte = "Aceptado";
+                            break;
+                        }
+                        
+            // var_dump("aquiii>>: " . $this->filtroReporte);
+            //         exit;
+            $this->reportes = $this->modelo->getReportesByid($this->currentId);
+                        
+            require_once "vista/users/admin/reportadas_reportes.php";
+        }else{  //reportes
 
 
-        require_once "vista/users/admin/reportadas_reportes.php";
+
+        }
+
+
+
+       
     }
 
     public function updateReporte() {
-        $this->currentId =  $_GET['id'];
-        $id_r =  $_GET['id_e'];
-        $id_e = $_GET['id_r'];
+        $this->menu = $_SESSION['menu'];
+
         
-        $this->modelo->updateReporte($id_r, $id_e);
-        $this->mostrarFiltrarReportes();
-        // mensaje exitooo
+        if($this->menu =="usuarios"){
+            $id_e = $_GET['id_e'];
+            $id_r =  $_GET['id_r'];
+            
+            $this->modelo->updateReporteUser($id_e, $id_r);
+
+            $this->mostrarFiltrarReportes();
+
+        }else{
+            $this->currentId =  $_GET['id'];
+            $id_r =  $_GET['id_r'];
+            $id_e = $_GET['id_e'];
+            
+            $this->modelo->updateReporte($id_e, $id_r);
+            $this->mostrarFiltrarReportes();
+            // mensaje exitooo
+        }
+         
         
     }
     

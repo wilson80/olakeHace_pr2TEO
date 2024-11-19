@@ -24,46 +24,37 @@
     
 <br>
 <br>
-    <!-- Evento mas proximo -->
-    <div class="event-container">
-        <div class="event-info">
-            <h3>Próximo evento</h3>
-            <p>Marcha</p>
-            <p>Ubicación:</p>
-        </div>
-        <div class="event-date">
-            Fecha
-        </div>
-        <div class="event-timer">
-            <h3>Tiempo restante</h3>
-            <div id="countdown">00 Días 00 Horas</div>
-        </div>
-    </div>
+ 
 
  
 <br>
 <br>
-    <h1>Te podria interesar</h1>
-    <!-- Contenedor de tarjetas con botones de navegación -->
-    <div class="card-scroll-container">
-        <button class="nav-button left" onclick="moveLeft()">&#10094;</button>
-        <div class="card-scroll">
+ 
 
 
-            <?php foreach($this->modelo->viewPublications("Aceptada") as $eq):?>         <!--ciclo for -->
+<br> 
+<br> 
+  
+
+
+
+   
+<div class="grid-container"> 
+
+<?php foreach($this->modelo->viewPublications_byUser($_SESSION['id']) as $eq):?>         <!--ciclo for -->
+    
+    
                 <div class="card">
                 <div class="container">
                     <div class="header">
                         <div class="date"><?=$eq->fecha_hora?></div>
-                        <button class="report-button" title="Reportar">
-                            &#9888;
-                        </button>
+                       
                     </div>
                     <div class="image">
-                        <img src="https://i.pinimg.com/736x/c9/49/e2/c949e213eddf6aec9af7a1fc31f0848b.jpg" alt="Imagen del evento">
+                        <img src="<?= $eq->imgdir?>" alt="Imagen del evento">
                     </div>
                     <div class="content">
-                        <h3><?=$eq->titulo?></h3>
+                        <h2><?=$eq->titulo?></h3>
                         <p>Lugar: <?=$eq->lugar?></p>
                         <p> <?=$eq->descripcion?></p>
                         <h3>invita: <?=$eq->username?></h3>
@@ -78,78 +69,23 @@
 
 
                         <div class="attendance"> Asistirán: <?= $eq->currentAsistentes?> </div> 
+ 
+                         <button class="details-button" onclick="cargarVista('?c=user_reg&a=mostrarPub&id=<?= $eq->id_publicacion?>')" >Más detalles</button>
 
-                        <a href="?c=user">
-                            <button  class="details-button">Más detalles</button>
-
-                        </a>
                     </div>
                 </div>
                                 
                      
-                
-                
                 </div>
                     
-                     
+                      
  
         
               <?php endforeach;?> 
+
  
-              
-            
-            
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div> 
-             
-             
-            
-            
-        </div>
-        <button class="nav-button right" onclick="moveRight()">&#10095;</button>
-    </div> 
-
-
-
-<br> 
-<br> 
+ 
   
-
-
-
-
-
-
-   
-<div class="grid-container"> 
-
-<?php foreach($this->modelo->viewPublications("Aceptada") as $eq):?>         <!--ciclo for -->
-      
-    <div class="container">
-                    <div class="header">
-                        <div class="date"><?=$eq->fecha_hora?></div>
-                        <button class="report-button" title="Reportar">
-                            &#9888;
-                        </button>
-                    </div>
-                    <div class="image">
-                        <img src="https://media.gettyimages.com/id/472324721/es/vector/rally-de-demostraci%C3%B3n.jpg?s=612x612&w=gi&k=20&c=rnxvRUQmuLfif1cEpkWA0UALppYpIx_1-zY5y20lWK8=" alt="Imagen del evento">
-                    </div>
-                    <div class="content">
-                        <h3>Un título</h3>
-                        <p>Un Subtítulo</p>
-                    </div>
-                    <div class="footerTarjeta">
-                        <div class="attendance">Límite de asistentes * Asistirán</div>
-                        <button class="details-button">Más detalles</button>
-                    </div>
-                </div>
-   
- 
-        <?php endforeach;?> 
  
  <!-- Puedes agregar más tarjetas aquí siguiendo el mismo formato -->
 </div>
@@ -164,7 +100,7 @@
 
 
 
-
+ 
 
 
 
@@ -196,19 +132,31 @@
                     <label for="cantidad-asistentes">Cantidad de asistentes:</label>
                     <input type="number" id="cantidad-asistentes" name="cantidad-asistentes">
 
+                    <label for="website">Introduce un enlace:</label>
+                    <input type="url" id="website" name="website" placeholder="https://example.com" required>
+
+
+
+
 
                     <label for="categoria">Categoría:</label>
                     <select id="categoria" name="categoria">
                         <option value="">Seleccione una categoría</option>
-                        <option value="1">Categoría 1</option>
-                        <option value="2">Categoría 2</option>
+                        <option value="1">Deporte</option>
+                        <option value="2">cocina</option>
+                        <option value="3">politica</option>
+                        <option value="4">religioso</option>
+                        <option value="5">academica</option>
+                        <option value="6">cultural</option>
+                        <option value="7">historia</option>
                     </select>
 
                     <label for="tipo">Tipo público:</label>
                     <select id="tipo" name="tipo">
-                        <option value="">Seleccione una categoría</option>
-                        <option value="1">Categoría 1</option>
-                        <option value="2">Categoría 2</option>
+                        <option value="">Seleccione el tipo de publico adecuado</option>
+                        <option value="1">Adulto</option>
+                        <option value="2">Infantil</option>
+                        <option value="3">familiar</option>
                     </select>
                 </form>
             </div>
@@ -218,6 +166,8 @@
             </div>
         </div>
     </div>
+
+
 
 
 

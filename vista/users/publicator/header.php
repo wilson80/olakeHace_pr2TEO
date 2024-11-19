@@ -110,6 +110,10 @@ header {
             <button class="header-button">Cerrar Sesion</button>
         </a>
     </div>
+
+    <p style="color: #c2dfff;">USUARIO PUBLICADOR  :   <?= $_SESSION['username']?></p></div>
+
+
     <div class="header-right">
         <!-- Botón antes de los íconos -->
         <button class="header-button">Mis eventos</button>

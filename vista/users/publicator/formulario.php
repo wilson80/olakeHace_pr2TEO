@@ -125,15 +125,22 @@
                     <label for="categoria">Categoría:</label>
                     <select id="categoria" name="categoria">
                         <option value="">Seleccione una categoría</option>
-                        <option value="1">Categoría 1</option>
-                        <option value="2">Categoría 2</option>
+                        <option value="1">Deporte</option>
+                        <option value="2">cocina</option>
+                        <option value="3">politica</option>
+                        <option value="4">religioso</option>
+                        <option value="5">academica</option>
+                        <option value="6">cultural</option>
+                        <option value="7">historia</option>
                     </select>
 
                     <label for="tipo">Tipo público:</label>
                     <select id="tipo" name="tipo">
-                        <option value="">Seleccione una categoría</option>
-                        <option value="1">Categoría 1</option>
-                        <option value="2">Categoría 2</option>
+                        <option value="">Seleccione el tipo de publico adecuado</option>
+                        <option value="1">Adulto</option>
+                        <option value="2">Infantil</option>
+                        <option value="3">familiar</option>
+ 
                     </select>
                 </form>
             </div>

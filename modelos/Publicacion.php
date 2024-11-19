@@ -51,6 +51,21 @@ class Publicacion{
     public function getTitulo(): ?string{ 
         return $this->m_titulo;
     }
+
+
+
+ 
+    public function setPath(string $nombre){
+        $this->m_pathImagen = $nombre;
+    }
+    public function getPath(): ?string{ 
+        return $this->m_pathImagen;
+    }
+
+
+    
+
+
     public function setDescripcion(string $nombre){
         $this->m_descripcion = $nombre;
     }
@@ -85,6 +100,7 @@ class Publicacion{
     public function getCantidad(): ?int{ 
         return $this->m_cantidad;
     }
+
 
       
     
@@ -224,6 +240,23 @@ class Publicacion{
         }catch(PDOException $e){
             die($e->getMessage());
         }
+     }   
+     
+     
+     public function getAllsReportes(){     
+        try{
+            $consulta = $this->pdo->prepare("SELECT * 
+            FROM reporte_pub; 
+            ");
+
+            // $consulta->bindParam(':id', $id);
+            $consulta->execute();
+      
+            return $consulta->fetchAll(PDO::FETCH_OBJ);
+
+        }catch(PDOException $e){
+            die($e->getMessage());
+        }
      }     
      
      
@@ -286,6 +319,58 @@ public function updateReporte($id, $idE){
 
 
 }
+public function updateReporteUser($idE, $idR){      //veridica si es necesario el bannn
+    if($idE==3){
+        try{
+
+            $sql = " CALL aceptarReporteUsuario(:idR);
+            ";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':idR', $idR);
+            
+            // Ejecutar la consulta
+            $stmt->execute();
+    
+            // header("location:?c=user");
+    
+            // echo "Evento insertado correctamente!";
+        }catch(PDOException $e){
+            echo "Error al insertar publicacion: " . $e->getMessage();
+            exit;
+            // header("location:?c=user");
+        }
+
+
+
+
+    }else if($idE==2){
+        try{
+
+            $sql = " UPDATE reporte_pub 
+                     set id_estado = :idE
+                     WHERE id_reporte = :idR;
+            ";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':idE', $idE);
+            $stmt->bindParam(':idR', $idR);
+            
+            // Ejecutar la consulta
+            $stmt->execute();
+    
+            // header("location:?c=user");
+    
+            // echo "Evento insertado correctamente!";
+        }catch(PDOException $e){
+            echo "Error al insertar publicacion: " . $e->getMessage();
+            exit;
+            // header("location:?c=user");
+        }
+    }
+
+    
+
+
+}
 
 
 
@@ -318,8 +403,8 @@ public function updatePublicacion($idP, $idE){
 
 public function insertPublication2($publication){
     try{
-        $sql = "INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat)
-        VALUES (:user, :estado, :tipo, :lugar, :fh, :descripcion, :cantidad, :titulo, :cat)
+        $sql = "INSERT INTO publicacion (id_user, id_estado, id_tipo, lugar, fecha_hora, descripcion, cantidad_asistentes, titulo, id_cat, imgdir)
+        VALUES (:user, :estado, :tipo, :lugar, :fh, :descripcion, :cantidad, :titulo, :cat, :imgdir)
         ";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':user', $publication->getId());
@@ -331,6 +416,8 @@ public function insertPublication2($publication){
         $stmt->bindParam(':cantidad', $publication->getCantidad());
         $stmt->bindParam(':titulo', $publication->getTitulo());
         $stmt->bindParam(':cat', $publication->getCat());
+        $stmt->bindParam(':imgdir', $publication->getPath());
+        
         
         // Ejecutar la consulta
         $stmt->execute();

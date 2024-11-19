@@ -1,4 +1,36 @@
  
+
+
+<body>
+
+    
+ 
+ <?php $masProx = $this->modelo->eventoMasProximo($_SESSION['id']); ?>
+            <?php if (isset(  $masProx->id_publicacion  )): ?>
+                <?php $this->fechaProx = $masProx->fecha_hora ;?>
+                            <!-- Evento mas proximo -->
+                <a  onclick="cargarVista('?c=user_reg&a=mostrarPub&id=<?= $masProx->id_publicacion?>')">
+                    <div class="event-container" title="click aqui para ver el evento">
+                        <div class="event-info">
+                            <h3>Próximo evento</h3>
+                            <p><?= $masProx->titulo?></p>
+                            <p><i class="fa-solid fa-location-crosshairs"></i> <?= $masProx->lugar?></p>
+
+                        </div>
+                        <div class="event-date">
+                            <?= $masProx->fecha_hora?>
+                            </div>
+                        <div class="event-timer">
+                            <h3>Tiempo restante</h3>
+                            <div id="countdown">00 Días 00 Horas</div>
+                        </div>
+                    </div>   
+                
+                </a>
+                                        
+            <?php endif; ?>
+
+
 <br>
 <h1>Eventos a los que te haz apuntado</h1>
 <!-- Ventana modal para la denuncia -->
@@ -50,7 +82,8 @@
                         </button>
                     </div>
                     <div class="image">
-                        <img src="https://i.pinimg.com/736x/c9/49/e2/c949e213eddf6aec9af7a1fc31f0848b.jpg" alt="Imagen del evento">
+                    <img src="<?= $eq->imgdir?>" alt="Imagen del evento">
+
                     </div>
                     <div class="content">
                         <h2><?=$eq->titulo?></h3>
@@ -101,4 +134,4 @@
 
         <script src="assets/js/ani.js"></script>
 </body>
-</html>
+ 

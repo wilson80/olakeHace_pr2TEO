@@ -3,22 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filtros de Categoría Mejorados</title>
-    <link rel="stylesheet" href="styles.css">
 
 
     <style>
-        
-        body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f5f5f5; /* Color de fondo para dar contraste */
-}
+
 
 .contenedor-filtros {
     width: 100%;

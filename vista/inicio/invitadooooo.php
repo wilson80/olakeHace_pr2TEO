@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+ 
 
  
 <!DOCTYPE html>
@@ -18,36 +18,16 @@
 <br>
 <br>
 
-   
- 
- 
- 
-                    <?php if ($this->vista=="home"): ?>
+    
                             <?php    include 'bodyPubs.php'; ?>
                             
-                    <?php else: ?>
-                                <?php    include 'miseventos.php'; ?>
-                            
-                    <?php endif; ?>
-
-                  
-                    <?php include "form_report.php";?>  
-
-
-
- 
- 
-
- 
-
-
+                   
 
 <script>
 
 
         // Configura la fecha del evento aquí (formato: "Año-Mes-Día Hora:Minuto:Segundo")
-        // const eventDate = new Date("2024-12-25 00:00:00").getTime();
-        const eventDate = new Date(<?php echo json_encode($this->fechaProx); ?>).getTime();
+        const eventDate = new Date("2024-12-25 00:00:00").getTime();
 
         // Actualiza el contador cada segundo
         const countdownInterval = setInterval(() => {

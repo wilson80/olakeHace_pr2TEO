@@ -71,6 +71,7 @@ CREATE TABLE publicacion (
     id_cat INT,
     currentAsistentes INT DEFAULT 0,
     titulo VARCHAR(255),  
+    imgdir VARCHAR(800),  
     lugar VARCHAR(100),
     fecha_hora DATETIME,
     descripcion TEXT,
@@ -148,6 +149,7 @@ SELECT
     p.id_publicacion,
     u.user AS username,
     p.titulo,
+    p.imgdir,
     p.lugar,
     p.fecha_hora,
     p.descripcion,
@@ -213,10 +215,12 @@ DELIMITER ;
 
 DELIMITER //
 -- muestra toda la informacion de una publicacion incluyendo los dato del usuario que la creo y el tipo y categoria de esta.
-CREATE PROCEDURE vista_una_publicacion(IN id_pub INT)
+CREATE OR REPLACE PROCEDURE vista_una_publicacion(IN id_pub INT)
 BEGIN
     SELECT 
         p.id_publicacion,
+        p.id_user,
+        p.imgdir,
         u.user AS username,
         p.titulo,
         p.lugar,
@@ -566,33 +570,69 @@ DELIMITER ;
 
 
 
+
+DELIMITER //
+
+CREATE or REPLACE PROCEDURE aceptarReporteUsuario(
+    IN p_reporte_id INT
+)
+BEGIN
+    DECLARE reportado_id INT;
+    DECLARE tiene_aprob_auto BOOLEAN;
+
+    -- Obtener el ID del usuario reportado desde la tabla reporte_pub
+    SELECT id_user
+    INTO reportado_id
+    FROM reporte_pub
+    WHERE id_reporte = p_reporte_id;
+
+    -- Verificar si el usuario tiene aprobAuto activo
+    SELECT aprobAuto
+    INTO tiene_aprob_auto
+    FROM gestion_permisos
+    WHERE id_user = reportado_id;
+
+    -- Si aprobAuto está activo, desactivarlo y reiniciar aprobaciones
+    IF tiene_aprob_auto = TRUE THEN
+        UPDATE gestion_permisos
+        SET aprobAuto = FALSE,
+            aprobaciones = 0
+        WHERE id_user = reportado_id;
+    ELSE
+        -- Si no tiene aprobAuto, aplicar un ban al usuario
+        UPDATE gestion_permisos
+        SET bann = TRUE
+        WHERE id_user = reportado_id;
+    END IF;
+
+    -- Cambiar el estado del reporte a 'Aceptado' (ejemplo: estado = 3)
+    UPDATE reporte_pub
+    SET id_estado = 3 -- Estado de 'Aceptado'
+    WHERE id_reporte = p_reporte_id;
+
+    -- Notificar al usuario afectado (opcional)
+    INSERT INTO notificacion (id_user, titulo, descripcion)
+    VALUES (reportado_id, 'Reporte Aceptado', 'Se han tomado medidas en tu cuenta debido a un reporte.');
+
+END //
+
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
-
-
---  -- verificar si es necesario el BANeo  de un User Publicador 
---             SELECT aprobAuto INTO aprob_Auto
---             FROM gestion_permisos
---             WHERE id_user = idUser;
-            
---                 IF aprob_Auto = 0 THEN  -- bann
---                     UPDATE gestion_permisos     -- bann
---                     set bann = 1
---                     WHERE id_user = idUser;
---                     UPDATE gestion_permisos     -- aprobaciones
---                     set aprobaciones = 0
---                     WHERE id_user = idUser;
  
-
---                 END IF;
---                 IF aprob_Auto = 1 THEN  
---                     UPDATE gestion_permisos     
---                     set aprobaciones = 0            -- contador aprobaciones a 0
---                     WHERE id_user = idUser;
---                     UPDATE gestion_permisos         -- desabilitando las aproAuto.
---                     set aprobAuto = 0
---                     WHERE id_user = idUser;
-
---                 END IF;
 
 
 

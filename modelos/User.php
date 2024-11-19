@@ -225,6 +225,29 @@ public function viewPublications($id_user){        //Listar publicaciones acepta
         // header("location:?c=user");
     }
 }
+public function insertarReporte_user($publicacionId, $idMotivo, $idReportador){
+
+
+    try{
+        $sql = "INSERT INTO reporte_pub (id_user, id_motivo, id_reportador, fecha_report) 
+                VALUES (:publicacionId, :idMotivo, :idReportador, NOW())";
+            
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':publicacionId', $publicacionId);
+        $stmt->bindParam(':idMotivo', $idMotivo);
+        $stmt->bindParam(':idReportador', $idReportador);
+         
+
+        // Ejecutar la consulta
+        $stmt->execute();
+ 
+        // echo "Evento insertado correctamente!";
+    }catch(PDOException $e){
+        echo "Error al insertar reporte: " . $e->getMessage();
+        exit;
+        // header("location:?c=user");
+    }
+}
  
 
 public function insertarMotivo($motivo){
@@ -265,6 +288,7 @@ public function obtenerEventosAsistente($idUser) {
         $sql = "SELECT 
                     p.id_publicacion,
                     p.titulo,
+                    p.imgdir,
                     p.lugar,
                     p.fecha_hora,
                     p.descripcion,

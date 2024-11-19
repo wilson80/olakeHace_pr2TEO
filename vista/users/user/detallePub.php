@@ -1,15 +1,10 @@
  
 <?php session_start(); ?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reportadas</title>
  
-</head>
 
+
+<?php include "form_report_user.php"; ?>  
+<link rel="stylesheet" href="assets/css/styles2.css">
 
 
 <div class="containerTarjetaPresentacion">
@@ -65,6 +60,11 @@
 
         <br>
         <h2>Sobre el Organizador</h2>
+        <button class="reportUser-button" data-idu="<?=$pub->id_user?>" data-tittleu="<?=$pub->username?>"  title="Reportar">
+                            &#9888; reportar publicador
+        </button>
+
+
         <!-- Tarjeta sobre el organizador -->
         <div class="card about-organizer">
             <p><span class="label">Username: <?= $pub->username?></span></p>
@@ -77,8 +77,7 @@
 
 
 
-
-
+ <script src="assets/js/form_report_user.js" ></script>
 
 
 <script> 
@@ -120,6 +119,4 @@
 
 
 
-
-</body>
-</html>
+ 

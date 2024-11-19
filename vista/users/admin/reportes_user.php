@@ -78,12 +78,7 @@
  
 
 <br> <br>
-
-
 <h1 style="color: blanchedalmond;"><?= $this->filtroReporte ?></h1>
-
-
-
 
  
 
@@ -93,17 +88,18 @@
                     <div class="card">
                         <div class="container">
                             <div class="header">
-                                <div class="date">Fecha reporte:  <?= $r->fecha_reportxz?></div> 
+                                <div class="date">Fecha reporte:  <?= $r->fecha_report?></div> 
                                 </button>
                             </div>
                         
                             <div class="content">
                                 <h5>id reporte: <?= $r->id_reporte?></h3>
+                                <h5>id user reportado:<?= $r->id_user?></h3>
                                 <h5>Motivo:<?= $r->motivo?></h3>
                             </div>
                             <div class="footerTarjeta">
                                     <button  class="details-button" onclick="updateR('<?= $r->id_reporte?>', 3 )"  >Aceptar</button>
-                                    <button  class="details-button" data-id="c" >Ignorar</button>
+                                    <button  class="details-button" onclick="updateR('<?= $r->id_reporte?>', 2 )"  >Ignorar</button>
                             </div>
                         </div>
                         </div>
@@ -129,12 +125,9 @@
         
 
 
-    function cargarVistaa(url) {
-        
-        const id = <?php echo json_encode($this->currentId); ?>;
-        const controlador = "?c=admin&a=mostrarReportes&id=" + id;
-        const otro = "&a=mostrarFiltrarReportes&tipor=" + url;
-        const dos = controlador + otro;
+    function cargarVistaa(id_estado) {
+        const controlador = "?c=admin";
+        const otro = "&a=mostrarFiltrarReportes&tipor=" + id_estado;
 
         window.location.href = controlador + otro;  // Redirige a la nueva URL
     }
@@ -142,8 +135,7 @@
 
 
     function updateR(id_reporte, id_estado) {
-        const idPubg = <?php echo json_encode($this->currentId); ?>;
-        const controlador = "?c=admin&a=updateReporte&id=" + idPubg;
+        const controlador = "?c=admin&a=updateReporte" ;
         const dos = "&id_r=" + id_reporte;
         const tres = "&id_e=" + id_estado;
 

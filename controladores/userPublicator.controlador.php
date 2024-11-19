@@ -33,10 +33,13 @@ class UserPublicatorControlador{
 
         require_once "vista/users/publicator/index.php"; 
 
-    }
+    } 
 
 
    public function insertPublication(){
+ 
+       $imgDef = "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg"; 
+    
        $estado = 1;
        $idUser = $_POST['id_user'];
        //identificar si el user tiene permisos automaticos y set a el estado de la nueva publicacion
@@ -55,8 +58,18 @@ class UserPublicatorControlador{
         $e->setTipo($_POST['tipo']);
         $e->setLugar($_POST['lugar']);
         $e->setFecha_hora($_POST['fecha-hora']);
-        $e->setDescripcion($_POST['descripcion']);  
+        $e->setDescripcion($_POST['descripcion']); 
+
+        $e->setPath($_POST['website']);  
+     
+    
+
+
+       
+       
+       
         $cantidad=$_POST['cantidad-asistentes'];
+         
         if(isset($cantidad)){
             $e->setCantidad($cantidad);
         }else{
@@ -65,6 +78,8 @@ class UserPublicatorControlador{
         }
         $e->setTitulo($_POST['titulo']);
         $e->setCat($_POST['categoria']);
+
+   
         $this->modelo->insertPublication2($e);
  
                // echo "Error en controlador insertarPub..: " . $e->getMessage();

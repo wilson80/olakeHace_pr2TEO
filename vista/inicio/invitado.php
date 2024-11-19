@@ -11,19 +11,17 @@
 </head>
 <body>
     <!-- Cabecera -->
-    <header class="header-fijo">
-    
-        <a href="?c=user">
-                    <img  src="assets/img/logo.png" alt="Logo" class="logo">
-        </a>
-        <h1 style="text-align: center;">ESTAS COMO INVITADO</h1>
-        <a href="?c=user" class="logo-container">
-                    <img  src="https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-bleu.png" alt="Logo" class="logo">
-        </a>
-    </header>
+ 
+    <?php    include 'header.php'; ?>
+
+
 
 <br>
 <br>
+
+
+<a onclick="showPopup()">
+
     <!-- Evento mas proximo -->
     <div class="event-container">
         <div class="event-info">
@@ -39,15 +37,21 @@
             <div id="countdown">00 Días 00 Horas</div>
         </div>
     </div>
+</a>
 
- 
+     
 <br>
 <br>
     <h1>Te podria interesar</h1>
     <!-- Contenedor de tarjetas con botones de navegación -->
+ 
+
+
     <div class="card-scroll-container">
         <button class="nav-button left" onclick="moveLeft()">&#10094;</button>
         <div class="card-scroll">
+
+
 
 
             <?php foreach($this->modelo->viewPublications("Aceptada") as $eq):?>         <!--ciclo for -->
@@ -79,7 +83,7 @@
 
                         <div class="attendance"> Asistirán: <?= $eq->currentAsistentes?> </div> 
 
-                        <a href="?c=login">
+                        <a onclick="showPopup()">
                             <button  class="details-button">Más detalles</button>
 
                         </a>
@@ -122,6 +126,9 @@
         </div>
         <button class="nav-button right" onclick="moveRight()">&#10095;</button>
     </div> 
+
+
+ 
 
 
 

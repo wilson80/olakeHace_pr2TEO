@@ -12,6 +12,8 @@
 <body>
 
 
+<?php include "header.php"?>
+
 <div class="containerUnitaria">
     <!-- Contenedor de imágenes -->
     <div class="image-containerUnitaria">
