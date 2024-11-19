@@ -308,7 +308,7 @@ DELIMITER ;
 
 DELIMITER //
 -- retira una asistenciaaaaaa
-CREATE PROCEDURE retirar_asistencia(
+CREATE OR REPLACE PROCEDURE retirar_asistencia(
     IN v_id_user INT,
     IN v_id_publicacion INT
 )

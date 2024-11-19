@@ -22,7 +22,6 @@ class adminControlador{
     public function Inicio(){
         // $this->filtrarPublications($this->filtro);
 
-
         if (isset($_SESSION['username'])) {
             $rol = $_SESSION['role']; 
             if($rol==1){

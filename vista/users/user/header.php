@@ -110,6 +110,10 @@ header {
             <button class="header-button">Cerrar Sesion</button>
         </a>
     </div>
+    <div>
+
+        <p style="color: #c2dfff;">username: <?= $_SESSION['username'];?> </p></div>
+
     <div class="header-right">
         <!-- Botón antes de los íconos -->
         <a href="?c=user_reg&vista=home">
@@ -122,7 +126,9 @@ header {
         </a>
 
         <div><i class="fa-solid fa-bell"></i></div>
+
         <div><i class="fa-solid fa-user"></i></div> <!-- Este es el último ícono -->
+        
     </div>
 </header>
 

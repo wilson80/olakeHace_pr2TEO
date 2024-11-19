@@ -20,23 +20,28 @@
 
  
             <?php $masProx = $this->modelo->eventoMasProximo($_SESSION['id']); ?>
-            <?php if (isset(  $masProx  )): ?>
+            <?php if (isset(  $masProx->id_publicacion  )): ?>
                 <?php $this->fechaProx = $masProx->fecha_hora ;?>
                             <!-- Evento mas proximo -->
-                <div class="event-container">
-                    <div class="event-info">
-                        <h3>Próximo evento</h3>
-                        <p>Marcha</p>
-                        <p>Ubicación:</p>
-                    </div>
-                    <div class="event-date">
-                        Fecha
-                    </div>
-                    <div class="event-timer">
-                        <h3>Tiempo restante</h3>
-                        <div id="countdown">00 Días 00 Horas</div>
-                    </div>
-                </div>              
+                <a  onclick="cargarVista('?c=user_reg&a=mostrarPub&id=<?= $masProx->id_publicacion?>')">
+                    <div class="event-container" title="click aqui para ver el evento">
+                        <div class="event-info">
+                            <h3>Próximo evento</h3>
+                            <p><?= $masProx->titulo?></p>
+                            <p><i class="fa-solid fa-location-crosshairs"></i> <?= $masProx->lugar?></p>
+
+                        </div>
+                        <div class="event-date">
+                            <?= $masProx->fecha_hora?>
+                            </div>
+                        <div class="event-timer">
+                            <h3>Tiempo restante</h3>
+                            <div id="countdown">00 Días 00 Horas</div>
+                        </div>
+                    </div>   
+                
+                </a>
+                           
             
                             
                                         
@@ -44,6 +49,7 @@
 
 
 
+       
  
  
                     <?php if ($this->vista=="home"): ?>
@@ -55,8 +61,7 @@
                     <?php endif; ?>
 
                     
-
-                    
+ 
 
 <!-- Ventana modal para la denuncia -->
 <div id="modale" class="modale">
@@ -254,7 +259,11 @@ function cargarVista(url) {
         const id = <?php echo json_encode($this->currentId); ?>;
 
         window.location.href = url;  // Redirige a la nueva URL
-    }
+}
+
+function cargarFiltro(url) {
+        window.location.href = url;  // Redirige a la nueva URL
+}
   
 
 

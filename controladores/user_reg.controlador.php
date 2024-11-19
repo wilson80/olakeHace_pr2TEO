@@ -18,6 +18,10 @@ class user_regControlador{
     private $asiste = false;
     private $vista = "home";    //mis_eventos
     private $fechaProx;   
+    private $filtroPublico = "familiar";   
+    private $filtroCategoria = "nofilter";   
+
+
 
     public function __CONSTRUCT(){
         $this->modelo = new User;
@@ -26,6 +30,8 @@ class user_regControlador{
 
     
     public function Inicio(){
+
+        
         if (isset($_SESSION['username'])) {
             if($_SESSION['role']==3){
                 $this->id_user = $_SESSION['id'];
@@ -34,6 +40,27 @@ class user_regControlador{
                 
                 if (isset($_GET['vista'])) {
                     $this->vista = $_GET['vista'];
+                }
+                
+                if (isset($_SESSION['ftipo'])) {
+                    $this->filtroPublico = $_SESSION['ftipo'];
+                }
+
+                if (isset($_SESSION['fcategoria'])) {
+                    $this->filtroCategoria = $_SESSION['fcategoria'];
+                     unset($_SESSION['fcategoria']); // no mostrar nuevamente 
+
+                }
+
+                
+                if (isset($_GET['ftipo'])) {
+                    $_SESSION['ftipo'] = $_GET['ftipo'];
+                    $this->filtroPublico = $_SESSION['ftipo'];
+                }
+
+                if (isset($_GET['fcategoria'])) {
+                    $_SESSION['fcategoria'] = $_GET['fcategoria'];
+                    $this->filtroCategoria = $_SESSION['fcategoria'];
                 }
 
 

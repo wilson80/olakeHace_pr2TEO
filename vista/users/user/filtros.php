@@ -8,7 +8,8 @@
 
 
     <style>
-body {
+        
+        body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -29,7 +30,7 @@ body {
 .filtros {
     display: flex;
     gap: 20px;
-    background-color: #2a69c7;
+    background-color: 	#0a326d; /* Cambiado a azul marino */
     padding: 10px 20px;
     border-radius: 8px;
     color: white;
@@ -84,7 +85,7 @@ input[type="radio"]::before {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #2a69c7;
+    background-color: #1c3b57; /* Azul marino para el indicador seleccionado */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -112,38 +113,79 @@ input[type="radio"]:checked::before {
             <div class="tipo-publico">
                 <label for="tipoPublicoSelect"><h3>Tipo público</h3></label>
                 <select id="tipoPublicoSelect">
-                    <option value="adulto">Adulto</option>
-                    <option value="infantil">Infantil</option>
-                    <option value="todo_publico">Todo público</option>
+                    <option value="familiar" <?php  echo ($this->filtroPublico === 'familiar') ? 'selected' : ''; ?>>Todo público</option>
+                    <option value="adulto" <?php  echo ($this->filtroPublico === 'adulto') ? 'selected' : ''; ?> >Adulto</option>
+                    <option value="infantil"  <?php  echo ($this->filtroPublico === 'infantil') ? 'selected' : ''; ?> >Infantil</option>
                 </select>
             </div>
 
+            
+            
             <div class="categorias">
                 <h3>Selecciona la categoría</h3>
                 <div class="categoria-opciones">
                     <label>
-                        <input type="radio" name="categoria" value="deporte"> Deporte
+                        <input type="radio" name="categoria" value="nofilter"  <?php  echo ($this->filtroCategoria === 'nofilter') ? 'checked' : ''; ?>  > Sin filtro
                     </label>
                     <label>
-                        <input type="radio" name="categoria" value="cocina"> Cocina
+                        <input type="radio" name="categoria" value="deporte"  <?php  echo ($this->filtroCategoria === 'deporte') ? 'checked' : ''; ?>  > Deporte
                     </label>
                     <label>
-                        <input type="radio" name="categoria" value="politica"> Política
+                        <input type="radio" name="categoria" value="cocina"  <?php  echo ($this->filtroCategoria === 'cocina') ? 'checked' : ''; ?> > Cocina 
                     </label>
                     <label>
-                        <input type="radio" name="categoria" value="religioso"> Religioso
+                        <input type="radio" name="categoria" value="politica" <?php  echo ($this->filtroCategoria === 'politica') ? 'checked' : ''; ?> > Política
                     </label>
                     <label>
-                        <input type="radio" name="categoria" value="academico"> Académico
+                        <input type="radio" name="categoria" value="religioso" <?php  echo ($this->filtroCategoria === 'religioso') ? 'checked' : ''; ?> > Religioso
                     </label>
                     <label>
-                        <input type="radio" name="categoria" value="historia"> Historia
+                        <input type="radio" name="categoria" value="academico" <?php  echo ($this->filtroCategoria === 'academico') ? 'checked' : ''; ?> > Académico
+                    </label>
+                    <label>
+                        <input type="radio" name="categoria" value="historia" <?php  echo ($this->filtroCategoria === 'historia') ? 'checked' : ''; ?> > Historia
                     </label>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+   
+    <script>
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const tipoPublicoSelect = document.getElementById('tipoPublicoSelect');
+        const categoriaInputs = document.querySelectorAll('input[name="categoria"]');
+
+        tipoPublicoSelect.addEventListener('change', () => {
+            // alert('Tipo público seleccionado:' + tipoPublicoSelect.value);
+            const controlador = "?c=user_reg&ftipo=";
+            const url = controlador + tipoPublicoSelect.value;
+            cargarFiltro(url);
+            
+        });
+
+
+        categoriaInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                // alert('Categoría seleccionada:'+  input.value);
+                const controlador = "?c=user_reg&fcategoria=";
+                const url = controlador + input.value;
+                cargarFiltro(url);
+
+            });
+        });
+    });
+
+
+
+    </script>
+
+
+
+
+
+    
 </body>
 </html>

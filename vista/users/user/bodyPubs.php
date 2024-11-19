@@ -1,9 +1,10 @@
  
- 
-<br>
-<br>
-    <h1>Home</h1>
+  
 
+    <?php    include 'filtros.php'; ?>
+    
+    <h1>Home</h1>
+    
     <h2>Te podria interesar</h2>
     <!-- Contenedor de tarjetas con botones de navegación -->
     <div class="card-scroll-container">
@@ -11,44 +12,74 @@
         <div class="card-scroll">
 
 
+            
+            
             <?php foreach($this->pubs as $eq):?>         <!--ciclo for -->
-                <div class="card">
-                <div class="container">
-                    <div class="header">
-                        <div class="date"><?=$eq->fecha_hora?></div>
-                        <button class="report-button" data-id="<?=$eq->id_publicacion?>" data-tittle="<?=$eq->titulo?>"  title="Reportar">
-                            &#9888;
-                        </button>
+    
+                <?php $mostrar = false?>
+                <?php if($this->filtroPublico == "familiar"):?>    <!-- verificaciones para los tipos de publicos -->
+                        <?php $mostrar = true; ?>
+
+                <?php else:?>
+                    <?php if($eq->tipo_publico == $this->filtroPublico): ?>
+                        <?php $mostrar = true; ?>
+    
+                    <?php endif;?>
+
+                <?php endif;?>
+                
+
+                <?php $mostrarCategoria = false; ?>
+                <?php if($this->filtroCategoria == "nofilter"):?>             <!-- verificaciones para las categorias -->
+                    <?php $mostrarCategoria = true; ?>
+                    
+                <?php else:?>
+                    <?php if($eq->categoria == $this->filtroCategoria):?>              
+                            <?php $mostrarCategoria = true; ?>
+                    <?php endif;?>
+                    
+                <?php endif;?>
+
+
+                <?php if($mostrar && $mostrarCategoria):?>
+                    <div class="card">
+                    <div class="container">
+                        <div class="header">
+                            <div class="date"><?=$eq->fecha_hora?></div>
+                            <button class="report-button" data-id="<?=$eq->id_publicacion?>" data-tittle="<?=$eq->titulo?>"  title="Reportar">
+                                &#9888;
+                            </button>
+                        </div>
+                        <div class="image">
+                            <img src="https://i.pinimg.com/736x/c9/49/e2/c949e213eddf6aec9af7a1fc31f0848b.jpg" alt="Imagen del evento">
+                        </div>
+                        <div class="content">
+                            <h2><?=$eq->titulo?></h3>
+                            <p>Lugar: <?=$eq->lugar?></p>
+                            <p> <?=$eq->descripcion?></p>
+                            <h3>invita: <?=$eq->username?></h3>
+                        </div>
+                        <div class="footerTarjeta"> 
+                            
+                        <?php if ($eq->cantidad_asistentes!=0): ?>
+                            <div class="attendance">Límite de asistentes: <?= $eq->cantidad_asistentes ?> </div>
+                        <?php else: ?>
+                                <div class="attendance">Sin limite de asistentes </div>
+                        <?php endif; ?>
+
+
+                            <div class="attendance"> Asistirán: <?= $eq->currentAsistentes?> </div> 
+    
+                            <button class="details-button" onclick="cargarVista('?c=user_reg&a=mostrarPub&id=<?= $eq->id_publicacion?>')" >Más detalles</button>
+
+                        </div>
                     </div>
-                    <div class="image">
-                        <img src="https://i.pinimg.com/736x/c9/49/e2/c949e213eddf6aec9af7a1fc31f0848b.jpg" alt="Imagen del evento">
-                    </div>
-                    <div class="content">
-                        <h2><?=$eq->titulo?></h3>
-                        <p>Lugar: <?=$eq->lugar?></p>
-                        <p> <?=$eq->descripcion?></p>
-                        <h3>invita: <?=$eq->username?></h3>
-                    </div>
-                    <div class="footerTarjeta">
+                                    
                         
-                    <?php if ($eq->cantidad_asistentes!=0): ?>
-                        <div class="attendance">Límite de asistentes: <?= $eq->cantidad_asistentes ?> </div>
-                    <?php else: ?>
-                            <div class="attendance">Sin limite de asistentes </div>
-                    <?php endif; ?>
-
-
-                        <div class="attendance"> Asistirán: <?= $eq->currentAsistentes?> </div> 
- 
-                         <button class="details-button" onclick="cargarVista('?c=user_reg&a=mostrarPub&id=<?= $eq->id_publicacion?>')" >Más detalles</button>
-
                     </div>
-                </div>
-                                
-                     
-                </div>
                     
                       
+                <?php endif;?>
 
         
               <?php endforeach;?> 
